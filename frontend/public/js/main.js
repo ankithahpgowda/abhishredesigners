@@ -112,9 +112,9 @@ $(document).ready(function () {
                 var slipHtml = '<div id="pdfPrintArea" style="background:#FFF8F0;padding:25px;border:2px solid #D4AF37;border-radius:12px;font-family:Poppins,sans-serif;color:#222;">'
                     + '<div style="text-align:center;border-bottom:2px dashed #D4AF37;padding-bottom:15px;margin-bottom:20px;">'
                     + '<img src="public/images/logo.png" alt="Logo" style="width:70px;height:70px;margin-bottom:8px;object-fit:contain;">'
-                    + '<h2 style="font-family:Playfair Display,serif;color:#111;margin:0;font-weight:bold;letter-spacing:1px;">AS FASHION DESIGNING</h2>'
-                    + '<p style="margin:4px 0 0;font-size:12px;color:#D4AF37;font-weight:600;text-transform:uppercase;">STUDIO &amp; ACADEMY</p>'
-                    + '<p style="margin:2px 0 0;font-size:11px;color:#666;">Fashion Hub, Main Blvd, Mumbai | +91 98765 43210 | info@asfashiondesigning.com</p>'
+                    + '<h2 style="font-family:Playfair Display,serif;color:#111;margin:0;font-weight:bold;letter-spacing:1px;">ABHISHREE</h2>'
+                    + '<p style="margin:4px 0 0;font-size:12px;color:#D4AF37;font-weight:600;text-transform:uppercase;">DESIGNERS &amp; FASHION ACADEMY</p>'
+                    + '<p style="margin:2px 0 0;font-size:11px;color:#666;">Fashion Hub, Main Blvd, Mumbai | +91 98765 43210 | info@abhishredesigners.com</p>'
                     + '</div>'
                     + '<div style="background:#111;color:#D4AF37;padding:8px 15px;border-radius:6px;font-weight:bold;font-size:14px;text-align:center;margin-bottom:20px;">OFFICIAL ADMISSION CONFIRMATION &amp; FEE SLIP</div>'
                     + '<table style="width:100%;border-collapse:collapse;margin-bottom:20px;font-size:13px;">'
@@ -204,15 +204,15 @@ $(document).ready(function () {
             doc.setFont('helvetica', 'bold');
             doc.setFontSize(17);
             doc.setTextColor(212, 175, 55);
-            doc.text('AS FASHION DESIGNING', pageW / 2, y + 10, { align: 'center' });
+            doc.text('ABHISHREE', pageW / 2, y + 10, { align: 'center' });
 
             doc.setFontSize(8.5);
             doc.setTextColor(180, 145, 50);
-            doc.text('STUDIO & ACADEMY', pageW / 2, y + 17, { align: 'center' });
+            doc.text('DESIGNERS & FASHION ACADEMY', pageW / 2, y + 17, { align: 'center' });
 
             doc.setFontSize(7.5);
             doc.setTextColor(150, 150, 150);
-            doc.text('Fashion Hub, Main Blvd, Mumbai  |  +91 98765 43210  |  info@asfashiondesigning.com', pageW / 2, y + 23, { align: 'center' });
+            doc.text('Fashion Hub, Main Blvd, Mumbai  |  +91 98765 43210  |  info@abhishredesigners.com', pageW / 2, y + 23, { align: 'center' });
 
             y += 36;
 
