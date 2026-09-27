@@ -169,6 +169,12 @@ app.get('/admin', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/admin.html'));
 });
 
+// Academy route
+app.get('/academy', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/academy.html'));
+});
+
+
 // Catch-all: serve frontend
 app.use((req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/index.html'));
