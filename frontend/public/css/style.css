@@ -1,26 +1,25 @@
-/* Root Variables (Ivory/Beige Theme) */
+/* Root Variables */
 :root {
     --primary-color: #111111;
     --secondary-color: #FFFFFF;
-    --accent-gold: #D4AF37; /* Premium Gold */
-    --accent-gold-hover: #B8962C;
-    --bg-light: #FBF7F0; /* Ivory */
-    --text-color: #2A1F14; /* Deep Brown/Black */
-    --card-bg: #F0E9DD; /* Beige */
-    --nav-bg: rgba(251, 247, 240, 0.95);
-    --border-color: rgba(212, 175, 55, 0.3);
+    --accent-gold: #B98A52;
+    --accent-gold-hover: #8C6438;
+    --bg-light: #EFE6D4;
+    --text-color: #3B2E1E;
+    --card-bg: #FAF6EF;
+    --nav-bg: rgba(17, 17, 17, 0.95);
+    --border-color: rgba(185, 138, 82, 0.25);
 }
 
-/* Dark Mode Variables (Black Theme) */
+/* Dark Mode Variables */
 body.dark-mode {
     --primary-color: #F8F8F8;
     --secondary-color: #111111;
-    --bg-light: #060606; /* Deep Black */
-    --text-color: #EFE6D4; /* Ivory Text */
-    --card-bg: #111111;
-    --nav-bg: rgba(6, 6, 6, 0.95);
-    --border-color: rgba(212, 175, 55, 0.2);
-    --accent-gold: #D4AF37;
+    --bg-light: #121212;
+    --text-color: #E0E0E0;
+    --card-bg: #1e1e1e;
+    --nav-bg: rgba(0, 0, 0, 0.96);
+    --border-color: rgba(185, 138, 82, 0.35);
 }
 
 /* Global Styles */
