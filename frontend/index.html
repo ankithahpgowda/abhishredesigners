@@ -15,8 +15,8 @@
             font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
-            background: #060606;
-            color: #fff;
+            background: #FBF7F0;
+            color: #2a1f14;
             cursor: default;
         }
 
@@ -26,7 +26,7 @@
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(212,175,55,0.06) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%);
             pointer-events: none;
             z-index: 1;
             transform: translate(-50%, -50%);
@@ -55,7 +55,7 @@
             position: fixed;
             inset: 0;
             z-index: 9999;
-            background: #060606;
+            background: #FBF7F0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -65,8 +65,8 @@
         .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         .loader-ring {
             width: 60px; height: 60px;
-            border: 2px solid rgba(212,175,55,0.15);
-            border-top-color: #D4AF37;
+            border: 2px solid rgba(180,140,60,0.2);
+            border-top-color: #B8962C;
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -75,7 +75,7 @@
             margin-top: 1.2rem;
             font-size: 0.7rem;
             letter-spacing: 5px;
-            color: rgba(212,175,55,0.6);
+            color: #8a6d3b;
             text-transform: uppercase;
         }
 
@@ -170,11 +170,11 @@
         .tagline {
             font-size: 0.65rem;
             letter-spacing: 5px;
-            color: rgba(212,175,55,0.65);
+            color: #8a6d3b;
             text-transform: uppercase;
             overflow: hidden;
             white-space: nowrap;
-            border-right: 2px solid rgba(212,175,55,0.6);
+            border-right: 2px solid #8a6d3b;
             width: 0;
             animation: typing 2.5s steps(30) 1.2s forwards, blinkCaret 0.7s step-end infinite;
         }
@@ -205,7 +205,7 @@
         .choose-label {
             font-size: 0.7rem;
             letter-spacing: 5px;
-            color: rgba(255,255,255,0.3);
+            color: rgba(100,80,50,0.45);
             text-transform: uppercase;
             margin-bottom: 2rem;
             animation: fadeIn 1s ease-out 1.8s both;
@@ -236,7 +236,7 @@
         }
         .choice-card:hover {
             transform: translateY(-16px) rotateX(2deg);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 60px rgba(212,175,55,0.12);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.25), 0 0 60px rgba(212,175,55,0.1);
         }
 
         .card-bg {
@@ -399,24 +399,24 @@
             gap: 2.5rem;
             padding: 16px;
             z-index: 5;
-            background: linear-gradient(to top, rgba(6,6,6,0.95) 0%, transparent 100%);
+            background: linear-gradient(to top, rgba(251,247,240,0.95) 0%, transparent 100%);
             animation: fadeIn 1s ease-out 2.5s both;
         }
         .bottom-link {
-            color: rgba(255,255,255,0.3);
+            color: rgba(100,80,50,0.5);
             font-size: 0.7rem;
             letter-spacing: 1px;
             text-decoration: none;
             transition: color 0.3s;
         }
-        .bottom-link:hover { color: #D4AF37; }
+        .bottom-link:hover { color: #8a6d3b; }
         .bottom-social a {
-            color: rgba(255,255,255,0.3);
+            color: rgba(100,80,50,0.4);
             margin: 0 10px;
             font-size: 1.05rem;
             transition: color 0.3s, transform 0.3s;
         }
-        .bottom-social a:hover { color: #D4AF37; transform: translateY(-2px); }
+        .bottom-social a:hover { color: #8a6d3b; transform: translateY(-2px); }
 
         /* ── Mobile ── */
         @media (max-width: 768px) {
@@ -581,7 +581,7 @@
                 const twinkle = Math.sin(time * s.speed * 3 + s.phase) * 0.3 + 0.7;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(212, 175, 55, ${s.opacity * twinkle})`;
+                ctx.fillStyle = `rgba(180, 140, 60, ${s.opacity * twinkle * 0.5})`;
                 ctx.fill();
             });
 
