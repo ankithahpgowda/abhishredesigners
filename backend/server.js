@@ -55,6 +55,8 @@ console.log('✅ Total enquiries stored:', loadEnquiries().length);
 // ─────────────────────────────────────────────
 //  API Routes
 // ─────────────────────────────────────────────
+const authRoutes = require('./routes/auth');
+app.use('/api/auth', authRoutes);
 
 // Submit a new enquiry (from admission form)
 app.post('/api/enquiries', (req, res) => {
