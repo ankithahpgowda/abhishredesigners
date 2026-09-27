@@ -6,7 +6,7 @@
     <title>Abhishree Designers | Fashion Boutique & Design Academy</title>
     <meta name="description" content="Abhishree Designers — Shop exclusive fashion collections or join our world-class Fashion Design Academy.">
     <link rel="icon" type="image/jpeg" href="public/images/logo.jpg">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,269 +15,376 @@
             font-family: 'Poppins', sans-serif;
             height: 100vh;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            background: #0a0a0a;
+            color: #fff;
         }
 
-        /* ── Top Logo Bar ── */
-        .top-bar {
-            background: #111;
+        /* ── Animated Background ── */
+        .bg-animation {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-animation::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(212,175,55,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(212,175,55,0.05) 0%, transparent 50%),
+                        radial-gradient(ellipse at 60% 80%, rgba(180,140,60,0.06) 0%, transparent 50%);
+            animation: bgFloat 20s ease-in-out infinite;
+        }
+        @keyframes bgFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(1deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
+        }
+
+        /* Floating gold particles */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #D4AF37;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat 8s infinite;
+            z-index: 1;
+        }
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 10s; }
+        .particle:nth-child(2) { left: 25%; animation-delay: 2s; animation-duration: 12s; }
+        .particle:nth-child(3) { left: 40%; animation-delay: 4s; animation-duration: 9s; }
+        .particle:nth-child(4) { left: 55%; animation-delay: 1s; animation-duration: 11s; }
+        .particle:nth-child(5) { left: 70%; animation-delay: 3s; animation-duration: 10s; }
+        .particle:nth-child(6) { left: 85%; animation-delay: 5s; animation-duration: 13s; }
+        .particle:nth-child(7) { left: 15%; animation-delay: 6s; animation-duration: 8s; }
+        .particle:nth-child(8) { left: 92%; animation-delay: 2.5s; animation-duration: 11s; }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-20vh) scale(1.5); opacity: 0; }
+        }
+
+        /* ── Main Layout ── */
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 14px;
-            padding: 14px 24px;
-            border-bottom: 2px solid #D4AF37;
-            z-index: 10;
-            flex-shrink: 0;
         }
-        .top-bar img {
-            height: 52px;
-            width: 52px;
+
+        /* ── Logo Section ── */
+        .logo-section {
+            text-align: center;
+            margin-bottom: 3.5rem;
+            animation: fadeInDown 1.2s ease-out;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo-img {
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             object-fit: cover;
             border: 2px solid #D4AF37;
+            box-shadow: 0 0 40px rgba(212,175,55,0.25);
+            margin-bottom: 1.2rem;
+            animation: logoPulse 3s ease-in-out infinite;
         }
-        .top-bar .brand-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            color: #D4AF37;
-            letter-spacing: 3px;
+        @keyframes logoPulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(212,175,55,0.2); }
+            50% { box-shadow: 0 0 50px rgba(212,175,55,0.4); }
+        }
+
+        .brand-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 300;
+            letter-spacing: 12px;
+            color: #fff;
             line-height: 1;
         }
-        .top-bar .brand-text span {
-            font-size: 0.55rem;
-            color: #aaa;
-            letter-spacing: 2px;
-            display: block;
-            margin-top: 2px;
+        .brand-name strong {
+            font-weight: 600;
+            color: #D4AF37;
+        }
+        .brand-tagline {
+            font-size: 0.65rem;
+            letter-spacing: 6px;
+            color: rgba(212,175,55,0.7);
+            margin-top: 8px;
+            text-transform: uppercase;
         }
 
-        /* ── Split Panels ── */
-        .split-container {
-            display: flex;
-            flex: 1;
-            height: calc(100vh - 82px);
+        /* ── Decorative Line ── */
+        .gold-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+            margin: 2rem auto;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; width: 0; }
+            to { opacity: 1; width: 60px; }
         }
 
-        .panel {
-            flex: 1;
+        .choose-text {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1.5s ease-out 0.8s both;
+        }
+
+        /* ── Cards ── */
+        .cards-row {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            gap: 2.5rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .choice-card {
+            width: 320px;
+            height: 380px;
             position: relative;
+            border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
-            transition: flex 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.5s;
+        }
+        .choice-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 40px rgba(212,175,55,0.15);
         }
 
-        .panel:hover { flex: 1.5; }
-
-        /* Shopping Panel */
-        .panel-shop {
-            background: linear-gradient(135deg, #1a0a00 0%, #2d1000 50%, #1a0a00 100%);
-        }
-        .panel-shop::before {
-            content: '';
+        .card-bg {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=80') center/cover;
-            opacity: 0.35;
-            transition: opacity 0.5s;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.7s;
         }
-        .panel-shop:hover::before { opacity: 0.5; }
+        .choice-card:hover .card-bg {
+            transform: scale(1.08);
+        }
 
-        /* Academy Panel */
-        .panel-academy {
-            background: linear-gradient(135deg, #0a0a1a 0%, #0d0d2d 50%, #0a0a1a 100%);
-        }
-        .panel-academy::before {
-            content: '';
+        .card-overlay {
             position: absolute;
             inset: 0;
-            background: url('https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=1200&q=80') center/cover;
-            opacity: 0.35;
-            transition: opacity 0.5s;
+            background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+            transition: background 0.4s;
         }
-        .panel-academy:hover::before { opacity: 0.5; }
-
-        /* Divider line */
-        .divider {
-            width: 2px;
-            background: linear-gradient(to bottom, transparent, #D4AF37, transparent);
-            flex-shrink: 0;
-            z-index: 2;
+        .choice-card:hover .card-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.75) 100%);
         }
 
-        /* Panel Content */
-        .panel-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
+        /* Gold shimmer border */
+        .card-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            border: 1px solid rgba(212,175,55,0.2);
+            transition: border-color 0.4s;
+            z-index: 3;
+        }
+        .choice-card:hover .card-border {
+            border-color: rgba(212,175,55,0.6);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 2rem;
-            color: #fff;
+            z-index: 2;
         }
 
-        .panel-icon {
-            width: 80px;
-            height: 80px;
-            border: 2px solid #D4AF37;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
-            color: #D4AF37;
-            background: rgba(0,0,0,0.4);
-            transition: transform 0.4s, background 0.4s;
-        }
-        .panel:hover .panel-icon {
-            transform: scale(1.1);
+        .card-tag {
+            display: inline-block;
+            padding: 4px 14px;
             background: rgba(212,175,55,0.15);
-        }
-
-        .panel-label {
-            font-size: 0.7rem;
-            letter-spacing: 4px;
+            border: 1px solid rgba(212,175,55,0.4);
+            border-radius: 50px;
+            font-size: 0.6rem;
+            letter-spacing: 3px;
             color: #D4AF37;
             text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-        }
-
-        .panel-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 4vw, 3rem);
-            font-weight: 700;
-            color: #fff;
-            line-height: 1.1;
             margin-bottom: 1rem;
         }
 
-        .panel-desc {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.65);
-            line-height: 1.7;
-            max-width: 280px;
-            margin: 0 auto 2rem;
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 0.6rem;
         }
 
-        .panel-btn {
-            display: inline-block;
-            padding: 13px 36px;
-            border: 1.5px solid #D4AF37;
+        .card-desc {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             color: #D4AF37;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
             text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.35s;
-            background: transparent;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
+            transition: gap 0.3s;
         }
-        .panel:hover .panel-btn {
-            background: #D4AF37;
-            color: #111;
-        }
+        .choice-card:hover .card-cta { gap: 14px; }
+        .card-cta i { transition: transform 0.3s; }
+        .choice-card:hover .card-cta i { transform: translateX(4px); }
 
-        /* OR badge */
-        .or-badge {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #111;
-            border: 2px solid #D4AF37;
-            color: #D4AF37;
-            font-weight: 700;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
+        /* ── Bottom Bar ── */
+        .bottom-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
-            flex-shrink: 0;
+            gap: 2rem;
+            padding: 14px;
+            z-index: 5;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
         }
-
-        .divider-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-            flex-shrink: 0;
+        .bottom-link {
+            color: rgba(255,255,255,0.35);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: color 0.3s;
         }
+        .bottom-link:hover { color: #D4AF37; }
+        .bottom-social a {
+            color: rgba(255,255,255,0.35);
+            margin: 0 8px;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .bottom-social a:hover { color: #D4AF37; }
 
-        /* Mobile */
+        /* ── Mobile ── */
         @media (max-width: 768px) {
             body { overflow: auto; }
-            .split-container {
-                flex-direction: column;
+            .main-wrapper {
+                min-height: 100vh;
                 height: auto;
-                min-height: calc(100vh - 82px);
+                padding: 2rem 1rem 5rem;
             }
-            .panel { min-height: 50vh; flex: none; }
-            .panel:hover { flex: none; }
-            .divider { width: 100%; height: 2px; }
-            .divider-wrapper { flex-direction: column; }
-            .or-badge { top: 50%; left: 50%; transform: translate(-50%, -50%); }
-            .top-bar .brand-text h1 { font-size: 1.1rem; }
+            .cards-row {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+            .choice-card {
+                width: 90vw;
+                max-width: 360px;
+                height: 320px;
+            }
+            .brand-name { letter-spacing: 6px; }
+            .logo-img { width: 70px; height: 70px; }
+            .logo-section { margin-bottom: 2rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Logo Bar -->
-    <div class="top-bar">
-        <img src="public/images/logo.jpg" alt="Abhishree Designers Logo">
-        <div class="brand-text">
-            <h1>ABHISHREE DESIGNERS</h1>
-            <span>FASHION BOUTIQUE &amp; DESIGN ACADEMY &nbsp;|&nbsp; PERFECTION IN EVERY STITCH</span>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+
+    <!-- Floating Particles -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+
+        <!-- Logo & Brand -->
+        <div class="logo-section">
+            <img src="public/images/logo.jpg" alt="Abhishree Designers" class="logo-img">
+            <h1 class="brand-name">ABHISHREE</h1>
+            <p class="brand-tagline">Perfection in Every Stitch</p>
+        </div>
+
+        <div class="gold-line"></div>
+        <p class="choose-text">Choose Your Experience</p>
+
+        <!-- Two Cards -->
+        <div class="cards-row">
+
+            <!-- Shopping Card -->
+            <a href="shop.html" class="choice-card" id="shopCard">
+                <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="card-overlay"></div>
+                <div class="card-border"></div>
+                <div class="card-content">
+                    <span class="card-tag"><i class="fas fa-gem me-1"></i> Boutique</span>
+                    <h2 class="card-title">Shop Our<br>Collection</h2>
+                    <p class="card-desc">Bridal lehengas, designer sarees, indo-western & more — handcrafted exclusives.</p>
+                    <span class="card-cta">Explore Now <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
+            <!-- Academy Card -->
+            <a href="academy.html" class="choice-card" id="academyCard">
+                <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=800&q=80');"></div>
+                <div class="card-overlay"></div>
+                <div class="card-border"></div>
+                <div class="card-content">
+                    <span class="card-tag"><i class="fas fa-scissors me-1"></i> Academy</span>
+                    <h2 class="card-title">Learn Fashion<br>Design</h2>
+                    <p class="card-desc">Master couture, pattern making & styling. Launch your fashion career with us.</p>
+                    <span class="card-cta">View Courses <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </a>
+
         </div>
     </div>
 
-    <!-- Split Panels -->
-    <div class="split-container">
-
-        <!-- SHOP Panel -->
-        <a href="shop.html" class="panel panel-shop">
-            <div class="panel-content">
-                <div class="panel-icon">
-                    <i class="fas fa-shopping-bag"></i>
-                </div>
-                <div class="panel-label">Explore &amp; Buy</div>
-                <h2 class="panel-title">Shop Our<br>Collection</h2>
-                <p class="panel-desc">Browse exclusive designer outfits, bridal wear, sarees, indo-western and more — curated by Abhishree Designers.</p>
-                <span class="panel-btn">Shop Now &nbsp;<i class="fas fa-arrow-right"></i></span>
-            </div>
-        </a>
-
-        <!-- Divider -->
-        <div class="divider-wrapper">
-            <div class="divider"></div>
-            <div class="or-badge">OR</div>
+    <!-- Bottom Bar -->
+    <div class="bottom-bar">
+        <a href="tel:+919876543210" class="bottom-link"><i class="fas fa-phone-alt me-1"></i> +91 98765 43210</a>
+        <div class="bottom-social">
+            <a href="https://www.instagram.com/abhishre_fashionacademy" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/919876543210" target="_blank"><i class="fab fa-whatsapp"></i></a>
         </div>
-
-        <!-- ACADEMY Panel -->
-        <a href="academy.html" class="panel panel-academy">
-            <div class="panel-content">
-                <div class="panel-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="panel-label">Learn &amp; Grow</div>
-                <h2 class="panel-title">Join Our<br>Academy</h2>
-                <p class="panel-desc">Enroll in world-class fashion design courses — from pattern making to haute couture, and launch your creative career.</p>
-                <span class="panel-btn">Explore Courses &nbsp;<i class="fas fa-arrow-right"></i></span>
-            </div>
-        </a>
-
+        <a href="auth.html" class="bottom-link"><i class="fas fa-user me-1"></i> My Account</a>
     </div>
 
 </body>
