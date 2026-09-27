@@ -3,815 +3,609 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abhishree Designers & Fashion Academy | Luxury Fashion & Design School</title>
-    <meta name="description" content="Abhishree Designers & Fashion Academy offers world-class fashion design, pattern making, boutique management, and bridal wear courses with placement assistance.">
-    <!-- Favicon -->
+    <title>Abhishree Designers | Fashion Boutique & Design Academy</title>
+    <meta name="description" content="Abhishree Designers — Shop exclusive fashion collections or join our world-class Fashion Design Academy.">
     <link rel="icon" type="image/jpeg" href="public/images/logo.jpg">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome 6 -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- AOS Animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="public/css/style.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #060606;
+            color: #fff;
+            cursor: default;
+        }
+
+        /* ── Cursor Trail ── */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* ── Canvas Stars ── */
+        #starCanvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        /* ── Noise Texture Overlay ── */
+        .noise-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* ── Loading Screen ── */
+        .loader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #060606;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s, visibility 0.8s;
+        }
+        .loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        .loader-ring {
+            width: 60px; height: 60px;
+            border: 2px solid rgba(212,175,55,0.15);
+            border-top-color: #D4AF37;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .loader-text {
+            margin-top: 1.2rem;
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            color: rgba(212,175,55,0.6);
+            text-transform: uppercase;
+        }
+
+        /* ── Main ── */
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 1.5rem 6rem; /* Increased padding to avoid footer overlap */
+            opacity: 0;
+            transition: opacity 1s ease 0.3s;
+        }
+        .main-wrapper.visible { opacity: 1; }
+
+        /* ── Logo ── */
+        .logo-wrap {
+            position: relative;
+            margin-bottom: 2rem; /* More space */
+        }
+        .logo-ring {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.2);
+            animation: ringRotate 12s linear infinite;
+        }
+        .logo-ring::before {
+            content: '';
+            position: absolute;
+            top: -3px; left: 50%;
+            width: 6px; height: 6px;
+            background: #D4AF37;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #D4AF37;
+        }
+        @keyframes ringRotate { to { transform: rotate(360deg); } }
+
+        .logo-img {
+            width: 95px; height: 95px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #D4AF37;
+            display: block;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── Brand Text ── */
+        .brand-section {
+            text-align: center;
+            margin-bottom: 1.5rem; /* More space */
+        }
+        .brand-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem); /* Slightly larger */
+            font-weight: 300;
+            letter-spacing: 14px;
+            line-height: 1;
+            overflow: hidden;
+            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        }
+        .brand-name span {
+            display: inline-block;
+            animation: slideUp 0.8s ease-out backwards;
+        }
+        .brand-name span:nth-child(1) { animation-delay: 0.4s; }
+        .brand-name span:nth-child(2) { animation-delay: 0.45s; }
+        .brand-name span:nth-child(3) { animation-delay: 0.5s; }
+        .brand-name span:nth-child(4) { animation-delay: 0.55s; }
+        .brand-name span:nth-child(5) { animation-delay: 0.6s; color: #D4AF37; text-shadow: 0 0 20px rgba(212,175,55,0.4); }
+        .brand-name span:nth-child(6) { animation-delay: 0.65s; }
+        .brand-name span:nth-child(7) { animation-delay: 0.7s; }
+        .brand-name span:nth-child(8) { animation-delay: 0.75s; }
+        .brand-name span:nth-child(9) { animation-delay: 0.8s; }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Typewriter tagline */
+        .tagline-wrap {
+            height: 1.6rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 12px;
+        }
+        .tagline {
+            font-size: 0.75rem; /* Slightly larger */
+            letter-spacing: 5px;
+            color: rgba(212,175,55,0.8);
+            text-transform: uppercase;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid rgba(212,175,55,0.8);
+            width: 0;
+            /* Changed width from ch to 100% to ensure no clipping */
+            animation: typing 2.5s steps(30) 1.2s forwards, blinkCaret 0.7s step-end infinite;
+        }
+        @keyframes typing { to { width: 100%; max-width: max-content; } }
+        @keyframes blinkCaret { 50% { border-color: transparent; } }
+
+        /* ── Divider ── */
+        .divider-area {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin: 2rem 0 3rem; /* More space */
+            animation: fadeIn 1s ease-out 1.5s both;
+        }
+        .div-line {
+            width: 100px; /* Longer line */
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,175,55,0.7), transparent);
+        }
+        .div-diamond {
+            width: 10px; height: 10px;
+            background: #D4AF37;
+            transform: rotate(45deg);
+            box-shadow: 0 0 15px rgba(212,175,55,0.8);
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .choose-label {
+            font-size: 0.75rem;
+            letter-spacing: 6px;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out 1.8s both;
+        }
+
+        /* ── Cards ── */
+        .cards-row {
+            display: flex;
+            gap: 4rem; /* More gap */
+            perspective: 1200px;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(60px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .choice-card {
+            width: 360px; /* Larger cards */
+            height: 460px; /* Larger cards */
+            position: relative;
+            border-radius: 28px;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+            transform-style: preserve-3d;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.5s;
+        }
+        .choice-card:hover {
+            transform: translateY(-20px) rotateX(4deg);
+            box-shadow: 0 45px 90px rgba(0,0,0,0.8), 0 0 80px rgba(212,175,55,0.15);
+        }
+
+        .card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .choice-card:hover .card-bg { transform: scale(1.15); }
+
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(0,0,0,0) 0%,
+                rgba(0,0,0,0.3) 40%,
+                rgba(0,0,0,0.9) 100%);
+            transition: background 0.5s;
+        }
+
+        /* Animated shimmer on hover */
+        .card-shimmer {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(105deg, transparent 40%, rgba(212,175,55,0.12) 45%, rgba(212,175,55,0.2) 50%, rgba(212,175,55,0.12) 55%, transparent 60%);
+            transform: translateX(-100%);
+            transition: none;
+            z-index: 2;
+        }
+        .choice-card:hover .card-shimmer {
+            animation: shimmer 1s ease forwards;
+        }
+        @keyframes shimmer { to { transform: translateX(100%); } }
+
+        /* Gold border glow */
+        .card-glow-border {
+            position: absolute;
+            inset: 0;
+            border-radius: 28px;
+            z-index: 3;
+            border: 1px solid rgba(212,175,55,0.15);
+            transition: border-color 0.5s, box-shadow 0.5s;
+        }
+        .choice-card:hover .card-glow-border {
+            border-color: rgba(212,175,55,0.6);
+            box-shadow: inset 0 0 40px rgba(212,175,55,0.1);
+        }
+
+        /* Number label */
+        .card-number {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(212,175,55,0.1);
+            z-index: 2;
+            line-height: 1;
+            transition: color 0.4s, transform 0.4s;
+        }
+        .choice-card:hover .card-number { 
+            color: rgba(212,175,55,0.25);
+            transform: translateY(-5px);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2.5rem;
+            z-index: 4;
+            transition: transform 0.4s;
+        }
+        .choice-card:hover .card-content {
+            transform: translateY(-10px);
+        }
+
+        .card-icon-badge {
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            background: rgba(212,175,55,0.15);
+            border: 1px solid rgba(212,175,55,0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #D4AF37;
+            margin-bottom: 1.2rem;
+            backdrop-filter: blur(10px);
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+        .choice-card:hover .card-icon-badge {
+            background: rgba(212,175,55,0.3);
+            transform: scale(1.1);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            color: #D4AF37;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            position: relative;
+        }
+        .card-cta::after {
+            content: '';
+            position: absolute;
+            bottom: 6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #D4AF37;
+            transition: width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .choice-card:hover .card-cta::after { width: 80%; }
+        .card-cta .arrow-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1px solid rgba(212,175,55,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+        .choice-card:hover .card-cta .arrow-circle {
+            background: #D4AF37;
+            color: #111;
+            transform: translateX(6px);
+        }
+
+        /* ── Bottom Bar ── */
+        .bottom-bar {
+            position: fixed; /* Fixed to the bottom */
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            padding: 20px;
+            z-index: 10; /* Ensures it stays above cards */
+            background: linear-gradient(to top, rgba(6,6,6,0.98) 0%, rgba(6,6,6,0.8) 60%, transparent 100%);
+            animation: fadeIn 1s ease-out 2.5s both;
+        }
+        .bottom-link {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .bottom-link:hover { color: #D4AF37; }
+        .bottom-social a {
+            color: rgba(255,255,255,0.4);
+            margin: 0 12px;
+            font-size: 1.15rem;
+            transition: color 0.3s, transform 0.3s;
+            display: inline-block;
+        }
+        .bottom-social a:hover { color: #D4AF37; transform: translateY(-3px); }
+
+        /* ── Mobile ── */
+        @media (max-width: 992px) {
+            .main-wrapper { 
+                padding: 2rem 1rem 7rem; /* Extra padding at bottom for mobile footer */
+                min-height: auto;
+            }
+            .cards-row {
+                flex-direction: column;
+                gap: 2rem;
+                align-items: center;
+            }
+            .choice-card {
+                width: 92vw;
+                max-width: 420px;
+                height: 400px;
+            }
+            .brand-name { letter-spacing: 8px; }
+            .logo-img { width: 80px; height: 80px; }
+            .logo-ring { inset: -10px; }
+            .bottom-bar { gap: 1.5rem; padding: 15px; flex-wrap: wrap; }
+            .card-number { font-size: 3.5rem; }
+        }
+    </style>
 </head>
-<body class="light-mode">
-    
-    <!-- Top Contact Bar -->
-    <div class="top-bar py-2 luxury-dark-bg text-white border-bottom border-gold-subtle d-none d-md-block">
-        <div class="container d-flex justify-content-between align-items-center">
-            <div class="top-info small">
-                <span class="me-3"><i class="fas fa-phone-alt gold-text me-1"></i> +91 98765 43210</span>
-                <span class="me-3"><i class="fas fa-envelope gold-text me-1"></i> info@abhishredesigners.com</span>
-                <span><i class="fas fa-map-marker-alt gold-text me-1"></i> Fashion Hub, Mumbai</span>
-            </div>
-            <div class="top-social">
-                <a href="https://www.instagram.com/abhishre_fashionacademy?igsh=MWhvNmp4eThpYnoxYQ==" target="_blank" rel="noopener" class="gold-text me-3"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="gold-text me-3"><i class="fab fa-youtube"></i></a>
-                <a href="https://wa.me/919876543210" class="btn btn-sm btn-gold py-0 px-2 small ms-2"><i class="fab fa-whatsapp me-1"></i> WhatsApp Us</a>
-            </div>
-        </div>
+<body>
+
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <div class="loader-ring"></div>
+        <p class="loader-text">Abhishree Designers</p>
     </div>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top luxury-nav" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="#home">
-                <img src="public/images/logo.jpg" alt="ABHISHREE DESIGNERS & FASHION ACADEMY" class="brand-logo-img me-3" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #D4AF37;">
-                <div>
-                    <h1 class="logo-text m-0" style="font-size: 1.5rem;">ABHISHREE</h1>
-                    <span class="logo-subtext d-block">DESIGNERS & FASHION ACADEMY</span>
-                    <span class="logo-tagline d-block text-gold small" style="font-size: 0.7rem; font-style: italic;">PERFECTION IN EVERY STITCH</span>
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Star Canvas -->
+    <canvas id="starCanvas"></canvas>
+
+    <!-- Noise -->
+    <div class="noise-overlay"></div>
+
+    <!-- Main Content -->
+    <div class="main-wrapper" id="mainContent">
+
+        <!-- Logo -->
+        <div class="logo-wrap">
+            <div class="logo-ring"></div>
+            <img src="public/images/logo.jpg" alt="Abhishree Designers" class="logo-img">
+        </div>
+
+        <!-- Brand -->
+        <div class="brand-section">
+            <h1 class="brand-name">
+                <span>A</span><span>B</span><span>H</span><span>I</span><span>S</span><span>H</span><span>R</span><span>E</span><span>E</span>
+            </h1>
+            <div class="tagline-wrap">
+                <p class="tagline">Perfection in every stitches</p>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="divider-area">
+            <div class="div-line"></div>
+            <div class="div-diamond"></div>
+            <div class="div-line"></div>
+        </div>
+
+        <p class="choose-label">Choose Your Experience</p>
+
+        <!-- Cards -->
+        <div class="cards-row">
+
+            <!-- Shop -->
+            <a href="shop.html" class="choice-card">
+                <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="card-overlay"></div>
+                <div class="card-shimmer"></div>
+                <div class="card-glow-border"></div>
+                <div class="card-number">01</div>
+                <div class="card-content">
+                    <div class="card-icon-badge"><i class="fas fa-shopping-bag"></i></div>
+                    <h2 class="card-title">Shop Our<br>Collection</h2>
+                    <p class="card-desc">Bridal lehengas, designer sarees, indo-western ensembles — handcrafted with perfection.</p>
+                    <span class="card-cta">Explore Now <span class="arrow-circle"><i class="fas fa-arrow-right"></i></span></span>
                 </div>
             </a>
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center me-3">
-                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#categories">Collections</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#courses">Courses</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#why-us">Why Us</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#testimonials">Testimonials</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-                <div class="d-flex align-items-center gap-2">
-                    <a href="#admission" class="btn btn-gold btn-sm d-none d-xl-inline-block">Enroll Now</a>
-                    <button class="btn btn-outline-gold btn-sm" id="themeToggle" title="Toggle Light/Dark Theme">
-                        <i class="fas fa-moon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero-section d-flex align-items-center">
-        <div class="container text-center hero-content" data-aos="fade-up" data-aos-duration="1200">
-            <span class="luxury-badge mb-3 d-inline-block">HAUTE COUTURE EDUCATION</span>
-            <h1 class="display-1 fw-bold text-white mb-4">Redefining Global Fashion Leadership</h1>
-            <p class="lead text-white-50 mb-5 max-w-700 mx-auto">Master the art of design, garment construction, and haute couture styling under international industry pioneers.</p>
-            <div class="d-flex justify-content-center gap-3 flex-wrap">
-                <a href="#admission" class="btn btn-gold btn-lg px-4">Enroll Now</a>
-                <a href="#courses" class="btn btn-outline-light btn-lg px-4">Explore Courses</a>
+            <!-- Academy -->
+            <a href="academy.html" class="choice-card">
+                <div class="card-bg" style="background-image: url('https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=900&q=80');"></div>
+                <div class="card-overlay"></div>
+                <div class="card-shimmer"></div>
+                <div class="card-glow-border"></div>
+                <div class="card-number">02</div>
+                <div class="card-content">
+                    <div class="card-icon-badge"><i class="fas fa-scissors"></i></div>
+                    <h2 class="card-title">Learn Fashion<br>Design</h2>
+                    <p class="card-desc">Master couture, draping & styling — launch your dream fashion career with us today.</p>
+                    <span class="card-cta">View Courses <span class="arrow-circle"><i class="fas fa-arrow-right"></i></span></span>
+                </div>
+            </a>
 
-            </div>
-        </div>
-        <div class="hero-overlay"></div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-5 section-padding">
-        <div class="container">
-            <div class="row align-items-center g-5">
-                <div class="col-lg-6" data-aos="fade-right">
-                    <div class="about-image-wrapper position-relative">
-                        <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Fashion Design Studio" class="img-fluid rounded-4 shadow-lg main-about-img">
-                        <div class="floating-experience-badge glassmorphism-card p-3 text-center">
-                            <h3 class="gold-text m-0 fw-bold">15+</h3>
-                            <span class="small text-white">Years of Excellence</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" data-aos="fade-left">
-                    <h5 class="gold-text fw-bold tracking-wider">ABOUT ABHISHREE ACADEMY</h5>
-                    <h2 class="display-5 fw-bold mb-4">Empowering Creative Minds to Shape Haute Couture</h2>
-                    <p class="text-muted mb-4">Abhishree Designers & Fashion Academy is an avant-garde institution committed to breeding creative visionary designers. Our cutting-edge labs, hands-on atelier environment, and runway exposure empower students to excel on global platforms.</p>
-                    
-                    <div class="founder-message p-4 mb-4 rounded-3 border-start border-gold">
-                        <p class="fst-italic text-muted mb-2">"Fashion is non-verbal communication of your soul. We teach you to speak it eloquently."</p>
-                        <h6 class="fw-bold mb-0 gold-text">— Founder & Creative Director</h6>
-                    </div>
-
-                    <div class="row text-center g-3 mt-4">
-                        <div class="col-6 col-md-3">
-                            <div class="p-3 luxury-card">
-                                <h3 class="fw-bold gold-text counter" data-target="5000">0</h3>
-                                <p class="small text-muted m-0">Graduates</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3 luxury-card">
-                                <h3 class="fw-bold gold-text counter" data-target="150">0</h3>
-                                <p class="small text-muted m-0">Runway Shows</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3 luxury-card">
-                                <h3 class="fw-bold gold-text counter" data-target="50">0</h3>
-                                <p class="small text-muted m-0">Global Awards</p>
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-3">
-                            <div class="p-3 luxury-card">
-                                <h3 class="fw-bold gold-text counter" data-target="98">0</h3>
-                                <p class="small text-muted m-0">Placement %</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Design Categories Section -->
-    <section id="categories" class="py-5 section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">OUR COLLECTIONS</h5>
-                <h2 class="display-5 fw-bold">Design Categories</h2>
-                <p class="text-muted max-w-600 mx-auto mt-2">Explore our signature styles and exclusive collections inspired by our Instagram.</p>
-            </div>
-            
-            <div class="row g-4">
-                <!-- Category 1 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up">
-                    <div class="card luxury-card h-100 overflow-hidden border-0 shadow-sm hover-lift">
-                        <img src="public/images/bridal_wear.jpg" class="card-img-top category-img" alt="Bridal Wear" style="height: 350px; object-fit: cover;">
-                        <div class="card-body text-center p-3">
-                            <h5 class="card-title fw-bold mb-0">Bridal Wear</h5>
-                        </div>
-                    </div>
-                </div>
-                <!-- Category 2 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card luxury-card h-100 overflow-hidden border-0 shadow-sm hover-lift">
-                        <img src="public/images/designer_sarees.jpg" class="card-img-top category-img" alt="Designer Sarees" style="height: 350px; object-fit: cover;">
-                        <div class="card-body text-center p-3">
-                            <h5 class="card-title fw-bold mb-0">Designer Sarees</h5>
-                        </div>
-                    </div>
-                </div>
-                <!-- Category 3 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card luxury-card h-100 overflow-hidden border-0 shadow-sm hover-lift">
-                        <img src="public/images/indo_western.jpg" class="card-img-top category-img" alt="Indo-Western" style="height: 350px; object-fit: cover;">
-                        <div class="card-body text-center p-3">
-                            <h5 class="card-title fw-bold mb-0">Indo-Western</h5>
-                        </div>
-                    </div>
-                </div>
-                <!-- Category 4 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card luxury-card h-100 overflow-hidden border-0 shadow-sm hover-lift">
-                        <img src="public/images/western_wear.jpg" class="card-img-top category-img" alt="Western Wear" style="height: 350px; object-fit: cover;">
-                        <div class="card-body text-center p-3">
-                            <h5 class="card-title fw-bold mb-0">Western Wear</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Courses Section -->
-    <section id="courses" class="py-5 bg-light-alt section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">ACADEMIC PROGRAMS</h5>
-                <h2 class="display-5 fw-bold">Curated Luxury Design Courses</h2>
-                <div class="max-w-600 mx-auto mt-3">
-                    <input type="text" id="courseSearch" class="form-control form-control-lg rounded-pill border-gold text-center" placeholder="🔍 Search courses (e.g. Bridal Wear, Pattern Making)...">
-                </div>
-            </div>
-            
-            <div class="row g-4" id="coursesGrid">
-                <!-- Course 1 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-title="Fashion Designing">
-                    <div class="card luxury-card h-100">
-                        <img src="https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=600&q=80" class="card-img-top course-img" alt="Fashion Designing">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Advanced Fashion Designing</h5>
-                            <p class="card-text text-muted small">Comprehensive program covering garment creation, trend forecasting, mood boards, and collection launches.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 1 Year / 2 Years</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Includes International Certification</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Runway Show Participation</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Diploma / Master</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 2 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-aos-delay="100" data-title="Pattern Making">
-                    <div class="card luxury-card h-100">
-                        <img src="public/images/pattern_making.png" class="card-img-top course-img" alt="Pattern Making">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Pattern Making & Draping</h5>
-                            <p class="card-text text-muted small">Learn precision flat pattern drafting, 3D draping techniques, and bespoke fitting methodologies.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 6 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>100% Practical Studio Work</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>CAD Pattern Software</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 2b: Saree Draping -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-aos-delay="150" data-title="Saree Draping">
-                    <div class="card luxury-card h-100">
-                        <img src="public/images/saree_draping.png" class="card-img-top course-img" alt="Saree Draping">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Saree Draping & Styling</h5>
-                            <p class="card-text text-muted small">Master 20+ regional and bridal saree draping styles — from classic Nivi to festive Gujarati and avant-garde designer drapes.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 2 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Bridal & Festive Draping</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Live Styling Sessions</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 3 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-aos-delay="200" data-title="Bridal Wear Design">
-                    <div class="card luxury-card h-100">
-                        <img src="https://images.unsplash.com/photo-1549416878-b9ca95e26903?auto=format&fit=crop&w=600&q=80" class="card-img-top course-img" alt="Bridal Wear">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Bridal & Couture Design</h5>
-                            <p class="card-text text-muted small">Specialized training in intricate embroideries, corsetry, heavy zardozi, and royal wedding ensembles.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 6 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Masterclass by Celebrity Designers</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Live Client Portfolio</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Advanced Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 4 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-title="Boutique Management">
-                    <div class="card luxury-card h-100">
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=600&q=80" class="card-img-top course-img" alt="Boutique Management">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Fashion Boutique Management</h5>
-                            <p class="card-text text-muted small">Turn your creative vision into a profitable fashion business with merchandising, marketing, and retail management.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 3 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>E-Commerce & Digital Marketing</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Supplier & Fabric Sourcing</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Executive Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 5 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-aos-delay="100" data-title="Fashion Illustration">
-                    <div class="card luxury-card h-100">
-                        <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" class="card-img-top course-img" alt="Fashion Illustration">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Digital & Manual Illustration</h5>
-                            <p class="card-text text-muted small">Master croquis drawing, watercolor rendering, and digital fashion illustration on Procreate and Illustrator.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 4 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Tablet & iPad Workflows</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Portfolio Publication</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Course 6 -->
-                <div class="col-md-6 col-lg-4 course-item" data-aos="fade-up" data-aos-delay="200" data-title="Embroidery & Surface Ornamentation">
-                    <div class="card luxury-card h-100">
-                        <img src="https://images.unsplash.com/photo-1605518216938-7c31b7b14ad0?auto=format&fit=crop&w=600&q=80" class="card-img-top course-img" alt="Embroidery">
-                        <div class="card-body d-flex flex-column">
-                            <h5 class="card-title fw-bold">Embroidery & Surface Design</h5>
-                            <p class="card-text text-muted small">Explore French knots, Aari work, sequins, beadwork, 3D fabric manipulation, and textile embellishments.</p>
-                            <ul class="list-unstyled small text-muted my-3">
-                                <li><i class="fas fa-check gold-text me-2"></i>Duration: 3 Months</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Traditional & Modern Fusion</li>
-                                <li><i class="fas fa-check gold-text me-2"></i>Couture Fabric Creation</li>
-                            </ul>
-                            <div class="mt-auto d-flex justify-content-between align-items-center pt-3 border-top">
-                                <span class="fw-bold gold-text">Certificate</span>
-                                <a href="#admission" class="btn btn-outline-gold btn-sm">Apply Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Why Choose Us -->
-    <section id="why-us" class="py-5 section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">OUR ADVANTAGE</h5>
-                <h2 class="display-5 fw-bold">Why Choose Abhishree Academy?</h2>
-            </div>
-            
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-4" data-aos="zoom-in">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-user-tie fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">Industry Expert Faculty</h5>
-                        <p class="text-muted small m-0">Learn directly from celebrity fashion designers, master cutters, and international brand stylists.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-cut fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">100% Practical Training</h5>
-                        <p class="text-muted small m-0">Hands-on studio experience with commercial machinery, mannequin draping, and live fabric work.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-walking fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">Annual Fashion Shows</h5>
-                        <p class="text-muted small m-0">Showcase your graduation collection on a professional runway with top models and media coverage.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="zoom-in">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-briefcase fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">100% Placement Support</h5>
-                        <p class="text-muted small m-0">Dedicated placement cell with tie-ups across leading luxury fashion houses, boutiques, and export units.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-globe-americas fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">Global Certification</h5>
-                        <p class="text-muted small m-0">Internationally recognized diploma and certifications accepted across Europe, USA, and Asia.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="p-4 luxury-card text-center h-100">
-                        <div class="feature-icon mb-3"><i class="fas fa-users fa-2x gold-text"></i></div>
-                        <h5 class="fw-bold">Small Batch Sizes</h5>
-                        <p class="text-muted small m-0">Limited to 15 students per batch to ensure personalized attention and individual mentoring.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section id="events" class="py-5 section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">LATEST FROM THE STUDIO</h5>
-                <h2 class="display-5 fw-bold">Events &amp; Highlights</h2>
-                <p class="text-muted max-w-600 mx-auto mt-2">Catch our latest workshops, runway moments, and student showcases — straight from our Instagram.</p>
-            </div>
-
-            <div class="row g-4">
-                <!-- Event 1 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up">
-                    <a href="https://www.instagram.com/reel/DbXpncQqOnP/" target="_blank" rel="noopener" class="text-decoration-none">
-                        <div class="luxury-card overflow-hidden h-100">
-                            <div class="position-relative overflow-hidden" style="height:240px;">
-                                <img src="public/images/event_saree_tassels.png" class="img-fluid w-100 h-100 object-fit-cover" alt="Saree Tassels Workshop" style="object-fit:cover;">
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <span class="badge" style="background:rgba(185,138,82,0.9);"><i class="fab fa-instagram me-1"></i>Reel</span>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <h6 class="fw-bold mb-1">Saree Tassels (Latkan) Art</h6>
-                                <p class="small text-muted mb-2">Handcrafted decorative tassels — a signature detail in Indian festive &amp; bridal wear.</p>
-                                <span class="small gold-text fw-bold"><i class="fab fa-instagram me-1"></i>Watch on Instagram →</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Event 2 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
-                    <a href="https://www.instagram.com/reel/DbTFgbnq7XV/" target="_blank" rel="noopener" class="text-decoration-none">
-                        <div class="luxury-card overflow-hidden h-100">
-                            <div class="position-relative overflow-hidden" style="height:240px;">
-                                <img src="public/images/event_umbrella_kurti.png" class="img-fluid w-100 h-100 object-fit-cover" alt="Umbrella Kurti" style="object-fit:cover;">
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <span class="badge" style="background:rgba(185,138,82,0.9);"><i class="fab fa-instagram me-1"></i>Reel</span>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <h6 class="fw-bold mb-1">Umbrella Kurti Design</h6>
-                                <p class="small text-muted mb-2">Student creation — a flowy, graceful umbrella-cut kurti with intricate embroidery.</p>
-                                <span class="small gold-text fw-bold"><i class="fab fa-instagram me-1"></i>Watch on Instagram →</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Event 3 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
-                    <a href="https://www.instagram.com/reel/DbEHNONzFPa/" target="_blank" rel="noopener" class="text-decoration-none">
-                        <div class="luxury-card overflow-hidden h-100">
-                            <div class="position-relative overflow-hidden" style="height:240px;">
-                                <img src="public/images/event_fashion_course.png" class="img-fluid w-100 h-100 object-fit-cover" alt="Fashion Designing Course" style="object-fit:cover;">
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <span class="badge" style="background:rgba(185,138,82,0.9);"><i class="fab fa-instagram me-1"></i>Reel</span>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <h6 class="fw-bold mb-1">Fashion Designing Course</h6>
-                                <p class="small text-muted mb-2">Live studio sessions — students mastering garment construction and draping techniques.</p>
-                                <span class="small gold-text fw-bold"><i class="fab fa-instagram me-1"></i>Watch on Instagram →</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <!-- Event 4 -->
-                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
-                    <a href="https://www.instagram.com/reel/DbLyBF1zmWx/" target="_blank" rel="noopener" class="text-decoration-none">
-                        <div class="luxury-card overflow-hidden h-100">
-                            <div class="position-relative overflow-hidden" style="height:240px;">
-                                <img src="public/images/event_runway_show.png" class="img-fluid w-100 h-100 object-fit-cover" alt="Annual Runway Show" style="object-fit:cover;">
-                                <div class="position-absolute top-0 end-0 m-2">
-                                    <span class="badge" style="background:rgba(185,138,82,0.9);"><i class="fab fa-instagram me-1"></i>Reel</span>
-                                </div>
-                            </div>
-                            <div class="p-3">
-                                <h6 class="fw-bold mb-1">Student Showcase Reel</h6>
-                                <p class="small text-muted mb-2">Highlights from our student fashion presentations and annual collection reveal.</p>
-                                <span class="small gold-text fw-bold"><i class="fab fa-instagram me-1"></i>Watch on Instagram →</span>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Instagram CTA -->
-            <div class="text-center mt-5" data-aos="fade-up">
-                <a href="https://www.instagram.com/abhishre_fashionacademy?igsh=MWhvNmp4eThpYnoxYQ==" target="_blank" rel="noopener" class="btn btn-gold btn-lg px-5">
-                    <i class="fab fa-instagram me-2"></i>Follow @abhishre_fashionacademy
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Instagram Gallery Section -->
-    <section id="gallery" class="py-5 bg-light-alt section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">INSTAGRAM GALLERY</h5>
-                <h2 class="display-5 fw-bold">Behind the Studio Scenes</h2>
-                <p class="text-muted max-w-600 mx-auto mt-2">A curated look at our creations, student works, and studio moments.</p>
-            </div>
-
-            <div class="row g-2" data-aos="fade-up">
-                <!-- Large tile -->
-                <div class="col-md-6">
-                    <a href="https://www.instagram.com/reel/DbSXyJXRm_d/" target="_blank" rel="noopener" class="portfolio-item d-block rounded-3 overflow-hidden position-relative" style="height:420px;">
-                        <img src="public/images/event_saree_tassels.png" class="img-fluid w-100 h-100" style="object-fit:cover;" alt="Gallery 1">
-                        <div class="portfolio-overlay d-flex flex-column justify-content-end p-4">
-                            <h5 class="text-white fw-bold mb-1">Saree Tassels Collection</h5>
-                            <span class="small gold-text"><i class="fab fa-instagram me-1"></i>abhishre_fashionacademy</span>
-                        </div>
-                    </a>
-                </div>
-                <!-- 2 stacked tiles -->
-                <div class="col-md-6">
-                    <div class="row g-2">
-                        <div class="col-6">
-                            <a href="https://www.instagram.com/reel/DbTFgbnq7XV/" target="_blank" rel="noopener" class="portfolio-item d-block rounded-3 overflow-hidden position-relative" style="height:205px;">
-                                <img src="public/images/event_umbrella_kurti.png" class="img-fluid w-100 h-100" style="object-fit:cover;" alt="Gallery 2">
-                                <div class="portfolio-overlay d-flex flex-column justify-content-end p-3">
-                                    <h6 class="text-white fw-bold mb-0 small">Umbrella Kurti</h6>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-6">
-                            <a href="https://www.instagram.com/reel/DbEHNONzFPa/" target="_blank" rel="noopener" class="portfolio-item d-block rounded-3 overflow-hidden position-relative" style="height:205px;">
-                                <img src="public/images/event_fashion_course.png" class="img-fluid w-100 h-100" style="object-fit:cover;" alt="Gallery 3">
-                                <div class="portfolio-overlay d-flex flex-column justify-content-end p-3">
-                                    <h6 class="text-white fw-bold mb-0 small">Course Studio</h6>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-12">
-                            <a href="https://www.instagram.com/reel/DbLyBF1zmWx/" target="_blank" rel="noopener" class="portfolio-item d-block rounded-3 overflow-hidden position-relative" style="height:205px;">
-                                <img src="public/images/event_runway_show.png" class="img-fluid w-100 h-100" style="object-fit:cover;" alt="Gallery 4">
-                                <div class="portfolio-overlay d-flex flex-column justify-content-end p-3">
-                                    <h5 class="text-white fw-bold mb-1">Annual Student Showcase</h5>
-                                    <span class="small gold-text"><i class="fab fa-instagram me-1"></i>abhishre_fashionacademy</span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="text-center mt-4" data-aos="fade-up">
-                <a href="https://www.instagram.com/abhishre_fashionacademy?igsh=MWhvNmp4eThpYnoxYQ==" target="_blank" rel="noopener" class="btn btn-outline-gold btn-lg px-5">
-                    <i class="fab fa-instagram me-2"></i>View Full Gallery on Instagram
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-5 section-padding">
-        <div class="container">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">SUCCESS STORIES</h5>
-                <h2 class="display-5 fw-bold">What Our Alumni Say</h2>
-            </div>
-            <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up">
-                    <div class="p-4 luxury-card h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <div class="stars mb-3 text-gold">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="fst-italic text-muted small">"Abhishree Fashion Academy completely transformed my artistic vision into a commercial brand. I launched my boutique within 3 months of graduation!"</p>
-                        </div>
-                        <div class="d-flex align-items-center mt-3 pt-3 border-top">
-                            <div class="avatar me-3 gold-border-circle">S</div>
-                            <div>
-                                <h6 class="fw-bold m-0">Sneha Kulkarni</h6>
-                                <span class="small text-muted">Boutique Owner, Mumbai</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="p-4 luxury-card h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <div class="stars mb-3 text-gold">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="fst-italic text-muted small">"The practical draping and runway shows prepared me for Paris Fashion Week internships. Best decision of my life."</p>
-                        </div>
-                        <div class="d-flex align-items-center mt-3 pt-3 border-top">
-                            <div class="avatar me-3 gold-border-circle">V</div>
-                            <div>
-                                <h6 class="fw-bold m-0">Varun Verma</h6>
-                                <span class="small text-muted">Assistant Designer, Manish Malhotra Studio</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="p-4 luxury-card h-100 d-flex flex-column justify-content-between">
-                        <div>
-                            <div class="stars mb-3 text-gold">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                            <p class="fst-italic text-muted small">"The faculty is super supportive! The pattern drafting techniques taught here are second to none in the industry."</p>
-                        </div>
-                        <div class="d-flex align-items-center mt-3 pt-3 border-top">
-                            <div class="avatar me-3 gold-border-circle">M</div>
-                            <div>
-                                <h6 class="fw-bold m-0">Meera Iyer</h6>
-                                <span class="small text-muted">Couture Stylist</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Admission Section -->
-    <section id="admission" class="py-5 section-padding luxury-light-bg text-dark">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center mb-5" data-aos="fade-up">
-                    <h5 class="gold-text fw-bold">START YOUR JOURNEY</h5>
-                    <h2 class="display-5 fw-bold">Admission & Free Demo Class</h2>
-                    <p class="text-muted">Fill in your details below to schedule a personal counseling session with our master faculty.</p>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8" data-aos="zoom-in">
-                    <div class="card glassmorphism-card-light p-4 p-md-5">
-                        <form id="admissionForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label class="form-label small text-gold">Full Name *</label>
-                                    <input type="text" class="form-control luxury-input" id="name" placeholder="e.g. Sophia Loren" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small text-gold">Email Address *</label>
-                                    <input type="email" class="form-control luxury-input" id="email" placeholder="name@example.com" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small text-gold">Mobile Number *</label>
-                                    <input type="tel" class="form-control luxury-input" id="phone" placeholder="+91 9876543210" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label class="form-label small text-gold">City *</label>
-                                    <input type="text" class="form-control luxury-input" id="city" placeholder="e.g. Mumbai" required>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small text-gold">Course Interested In *</label>
-                                    <select class="form-select luxury-input" id="course" required>
-                                        <option value="" disabled selected>Select a Course</option>
-                                        <option value="Advanced Fashion Designing">Advanced Fashion Designing</option>
-                                        <option value="Pattern Making & Draping">Pattern Making & Draping</option>
-                                        <option value="Saree Draping & Styling">Saree Draping & Styling</option>
-                                        <option value="Bridal & Couture Design">Bridal & Couture Design</option>
-                                        <option value="Fashion Boutique Management">Fashion Boutique Management</option>
-                                        <option value="Digital & Manual Illustration">Digital & Manual Illustration</option>
-                                        <option value="Embroidery & Surface Design">Embroidery & Surface Design</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="form-label small text-gold">Your Message / Query</label>
-                                    <textarea class="form-control luxury-input" id="message" rows="3" placeholder="Tell us about your background or questions..."></textarea>
-                                </div>
-                                <div class="col-12 text-center mt-4">
-                                    <button type="submit" class="btn btn-gold btn-lg px-5">Submit Application</button>
-                                </div>
-                            </div>
-                        </form>
-                        <div id="formMessage" class="mt-3 text-center d-none"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Application Slip Modal -->
-    <div class="modal fade" id="slipModal" tabindex="-1" aria-labelledby="slipModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content text-dark border-0 shadow-lg" style="background:#FFF8F0; border-radius:16px;">
-                <div class="modal-header border-bottom border-warning" style="background:#111; color:#D4AF37;">
-                    <h5 class="modal-title fw-bold" id="slipModalLabel"><i class="fas fa-file-invoice me-2"></i> Official Admission & Fee Slip</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4" id="slipReceiptContent">
-                    <!-- Slip PDF content rendered dynamically -->
-                </div>
-                <div class="modal-footer border-top bg-light justify-content-between">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <div>
-                        <button type="button" class="btn btn-outline-dark fw-bold me-2" id="printSlipBtn"><i class="fas fa-print me-2"></i> Print Slip</button>
-                        <button type="button" class="btn btn-gold fw-bold px-4" id="downloadSlipBtn"><i class="fas fa-download me-2"></i> Download PDF Slip</button>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- FAQ Accordion -->
-    <section class="py-5 section-padding">
-        <div class="container max-w-800">
-            <div class="text-center mb-5" data-aos="fade-up">
-                <h5 class="gold-text fw-bold">FREQUENTLY ASKED QUESTIONS</h5>
-                <h2 class="display-5 fw-bold">Everything You Need to Know</h2>
-            </div>
-            
-            <div class="accordion luxury-accordion" id="faqAccordion" data-aos="fade-up">
-                <div class="accordion-item mb-3 rounded-3 overflow-hidden border">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
-                            Are there any eligibility criteria for enrolling in the diploma programs?
-                        </button>
-                    </h2>
-                    <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted small">
-                            Anyone with a passion for creative arts and fashion can apply! Minimum qualification is 10th or 12th pass from a recognized board.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item mb-3 rounded-3 overflow-hidden border">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
-                            Does the academy assist with job placement and internships?
-                        </button>
-                    </h2>
-                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted small">
-                            Yes! We provide 100% placement support and guarantee internship opportunities with renowned fashion houses and boutiques.
-                        </div>
-                    </div>
-                </div>
-                <div class="accordion-item mb-3 rounded-3 overflow-hidden border">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
-                            Can I attend weekend or part-time batches?
-                        </button>
-                    </h2>
-                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                        <div class="accordion-body text-muted small">
-                            Absolutely. We offer flexible weekend batches designed specifically for working professionals and university students.
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <!-- Bottom -->
+    <div class="bottom-bar">
+        <a href="tel:+919876543210" class="bottom-link"><i class="fas fa-phone-alt me-2"></i>+91 98765 43210</a>
+        <div class="bottom-social">
+            <a href="https://www.instagram.com/abhishre_fashionacademy" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://wa.me/919876543210" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
-    </section>
+        <a href="auth.html" class="bottom-link"><i class="fas fa-user me-2"></i>My Account</a>
+    </div>
 
-    <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/919876543210" class="floating-whatsapp" target="_blank" title="Chat on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <script>
+        // ── Loader ──
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+                document.getElementById('mainContent').classList.add('visible');
+            }, 1400);
+        });
 
-    <!-- Footer -->
-    <footer class="luxury-footer py-5 text-white">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="public/images/logo.jpg" alt="ABHISHREE DESIGNERS & FASHION ACADEMY" class="brand-logo-img me-3 img-fluid" style="width: 55px; height: 55px; object-fit: contain;">
-                        <div>
-                            <h4 class="logo-text m-0 gold-text" style="font-size: 1.3rem;">ABHISHREE</h4>
-                            <span class="logo-subtext d-block" style="font-size: 0.6rem;">DESIGNERS & FASHION ACADEMY</span>
-                            <span class="logo-tagline d-block text-gold small" style="font-size: 0.6rem; font-style: italic;">PERFECTION IN EVERY STITCH</span>
-                        </div>
-                    </div>
-                    <p class="text-white-50 small">Abhishree Designers & Fashion Academy is a premier institution dedicated to luxury fashion design, haute couture, and industry-oriented creative education.</p>
-                    <div class="social-links mt-4">
-                        <a href="https://www.instagram.com/abhishre_fashionacademy?igsh=MWhvNmp4eThpYnoxYQ==" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-6">
-                    <h6 class="gold-text mb-3 fw-bold">Quick Links</h6>
-                    <ul class="list-unstyled footer-links small">
-                        <li class="mb-2"><a href="#about">About Us</a></li>
-                        <li class="mb-2"><a href="#courses">Courses</a></li>
-                        <li class="mb-2"><a href="#why-us">Why Choose Us</a></li>
-                        <li class="mb-2"><a href="#admission">Admissions</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <h6 class="gold-text mb-3 fw-bold">Programs</h6>
-                    <ul class="list-unstyled footer-links small">
-                        <li class="mb-2"><a href="#courses">Fashion Designing</a></li>
-                        <li class="mb-2"><a href="#courses">Pattern Drafting</a></li>
-                        <li class="mb-2"><a href="#courses">Bridal & Couture</a></li>
-                        <li class="mb-2"><a href="#courses">Boutique Setup</a></li>
-                        <li class="mb-2"><a href="#courses">Digital Illustration</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h6 class="gold-text mb-3 fw-bold">Contact & Newsletter</h6>
-                    <p class="small text-white-50 mb-3"><i class="fas fa-envelope me-2 gold-text"></i> Subscribe for design tips & intake dates:</p>
-                    <div class="input-group mb-3">
-                        <input type="email" class="form-control form-control-sm luxury-input" placeholder="Your Email">
-                        <button class="btn btn-gold btn-sm">Join</button>
-                    </div>
-                </div>
-            </div>
-            <hr class="mt-5 border-secondary">
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center small text-white-50">
-                <div>&copy; 2026 Abhishree Designers & Fashion Academy. All Rights Reserved.</div>
-                <div>
-                    <a href="admin.html" class="gold-text me-3"><i class="fas fa-lock me-1"></i> Admin Portal</a>
-                    <a href="#" class="text-white-50 me-3">Privacy Policy</a>
-                    <a href="#" class="text-white-50">Terms of Service</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        // ── Cursor Glow ──
+        const glow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', e => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="public/js/main.js?v=5"></script>
+        // ── Star Canvas ──
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d');
+        let stars = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function createStars(count) {
+            stars = [];
+            for (let i = 0; i < count; i++) {
+                stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 1.5 + 0.3,
+                    opacity: Math.random() * 0.5 + 0.1,
+                    speed: Math.random() * 0.3 + 0.05,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        createStars(120);
+
+        function animateStars() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const time = Date.now() * 0.001;
+
+            stars.forEach(s => {
+                const twinkle = Math.sin(time * s.speed * 3 + s.phase) * 0.3 + 0.7;
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(212, 175, 55, ${s.opacity * twinkle})`;
+                ctx.fill();
+            });
+
+            requestAnimationFrame(animateStars);
+        }
+        animateStars();
+    </script>
 </body>
 </html>
-
