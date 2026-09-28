@@ -12,25 +12,89 @@
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --gold: #D4AF37;
-            --gold-light: rgba(212,175,55,0.15);
-            --gold-mid: rgba(212,175,55,0.4);
-            --bg: #0a0a0a;
-            --bg2: #111111;
-            --bg3: #1a1a1a;
-            --border: rgba(255,255,255,0.07);
-            --text: #e8e8e8;
-            --text-muted: rgba(255,255,255,0.45);
+            --gold: #C9963A;
+            --gold-light: rgba(201,150,58,0.13);
+            --gold-mid: rgba(201,150,58,0.38);
+            --bg: #1a0f14;
+            --bg2: rgba(30,15,22,0.82);
+            --bg3: rgba(40,20,30,0.75);
+            --border: rgba(201,150,58,0.12);
+            --text: #f5ede8;
+            --text-muted: rgba(245,237,232,0.45);
             --sidebar-w: 270px;
             --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+            --rose: #c9748a;
+            --blush: #e8b4c0;
         }
 
+        /* ── Aesthetic Background ── */
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
+            background: #1a0f14;
+        }
+
+        /* Animated gradient backdrop */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse 80% 60% at 20% 10%, rgba(201,116,138,0.22) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 80% at 80% 90%, rgba(180,100,130,0.18) 0%, transparent 55%),
+                radial-gradient(ellipse 50% 50% at 50% 50%, rgba(201,150,58,0.06) 0%, transparent 70%),
+                linear-gradient(145deg, #1a0b12 0%, #1e0f18 30%, #16080f 60%, #1a0d16 100%);
+            animation: bgShift 12s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes bgShift {
+            0%   { opacity: 1; filter: hue-rotate(0deg); }
+            50%  { opacity: 0.88; filter: hue-rotate(8deg); }
+            100% { opacity: 1; filter: hue-rotate(-5deg); }
+        }
+
+        /* Floating bokeh particles */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                radial-gradient(circle 3px at 15% 25%, rgba(201,150,58,0.45) 0%, transparent 100%),
+                radial-gradient(circle 2px at 75% 15%, rgba(232,180,192,0.5) 0%, transparent 100%),
+                radial-gradient(circle 4px at 90% 60%, rgba(201,116,138,0.35) 0%, transparent 100%),
+                radial-gradient(circle 2px at 35% 80%, rgba(201,150,58,0.4) 0%, transparent 100%),
+                radial-gradient(circle 3px at 60% 40%, rgba(232,180,192,0.3) 0%, transparent 100%),
+                radial-gradient(circle 2px at 10% 70%, rgba(201,116,138,0.4) 0%, transparent 100%),
+                radial-gradient(circle 5px at 50% 90%, rgba(201,150,58,0.2) 0%, transparent 100%),
+                radial-gradient(circle 2px at 80% 35%, rgba(232,180,192,0.35) 0%, transparent 100%);
+            animation: bokehFloat 18s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+        @keyframes bokehFloat {
+            0%   { transform: translateY(0) scale(1); }
+            50%  { transform: translateY(-12px) scale(1.05); }
+            100% { transform: translateY(4px) scale(0.97); }
+        }
+
+        /* Silk noise texture */
+        .silk-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.025;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        /* All content must be above the background layers */
+        .topbar, .shop-layout, .cart-overlay, .cart-drawer, .modal-overlay, .toast {
+            position: relative;
+            z-index: 2;
         }
 
         /* ── TOPBAR ── */
@@ -38,9 +102,10 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(10,10,10,0.92);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            background: rgba(26,11,18,0.88);
+            backdrop-filter: blur(24px) saturate(1.3);
+            border-bottom: 1px solid rgba(201,150,58,0.18);
+            box-shadow: 0 1px 30px rgba(0,0,0,0.4);
             padding: 0 2rem;
             display: flex;
             align-items: center;
@@ -882,13 +947,13 @@
             <div class="sidebar-section">
                 <p class="sidebar-title">Category</p>
                 <div class="filter-group" id="categoryFilters">
-                    <div class="filter-chip active" data-cat="all">
+                    <div class="filter-chip" data-cat="all">
                         <i class="fas fa-th" style="font-size:0.75rem;color:var(--gold)"></i> All Items
-                        <span class="chip-count">12</span>
+                        <span class="chip-count">14</span>
                     </div>
                     <div class="filter-chip" data-cat="Bridal Lehenga">
                         <i class="fas fa-star" style="font-size:0.65rem"></i> Bridal Lehenga
-                        <span class="chip-count">3</span>
+                        <span class="chip-count">4</span>
                     </div>
                     <div class="filter-chip" data-cat="Designer Saree">
                         <i class="fas fa-star" style="font-size:0.65rem"></i> Designer Sarees
@@ -908,7 +973,7 @@
                     </div>
                     <div class="filter-chip" data-cat="Party Wear">
                         <i class="fas fa-star" style="font-size:0.65rem"></i> Party Wear
-                        <span class="chip-count">1</span>
+                        <span class="chip-count">2</span>
                     </div>
                 </div>
             </div>
@@ -1258,6 +1323,38 @@
             sizes: ["S", "M", "L", "XL", "Custom"],
             occasion: "festive",
             new: false
+        },
+        {
+            id: 13,
+            name: "Lime Chartreuse Mermaid Gown",
+            category: "Party Wear",
+            badge: "new",
+            price: 19500,
+            originalPrice: 26000,
+            img: "public/images/product_lime_mermaid.jpg",
+            rating: 5.0,
+            reviews: 7,
+            desc: "As seen on our Instagram — a stunning lime green chartreuse mermaid gown crafted in-house at Abhishree Designers. Features a beautifully embroidered bustier bodice with intricate silver thread work, sleeveless silhouette, and a dramatic fishtail mermaid skirt with panel seaming. Handstitched by our master tailor.",
+            details: { Fabric: "Silk Satin", Embroidery: "Silver Thread Bustier", Color: "Lime Chartreuse", Style: "Mermaid / Fishtail", Craft: "Hand-stitched In-house" },
+            sizes: ["XS", "S", "M", "L", "XL", "Custom"],
+            occasion: "party",
+            new: true
+        },
+        {
+            id: 14,
+            name: "Sage & Pink Pleated Lehenga Set",
+            category: "Bridal Lehenga",
+            badge: "new",
+            price: 28500,
+            originalPrice: 38000,
+            img: "public/images/product_pink_sage_lehenga.jpg",
+            rating: 5.0,
+            reviews: 12,
+            desc: "As seen on Abhisheee Fashion Channarayapatana — a gorgeous sage green pleated lehenga skirt paired with a blush pink embroidered choli and a vibrant hot pink dupatta with gold gota border. 1,600+ likes on Instagram! Crafted with precision pleating and luxe fabric.",
+            details: { Fabric: "Satin + Net Dupatta", Embroidery: "Gold Gota Border", Color: "Sage Green, Blush Pink & Magenta", Includes: "Lehenga + Choli + Dupatta", Craft: "Hand-pleated" },
+            sizes: ["S", "M", "L", "XL", "Custom"],
+            occasion: "bridal",
+            new: true
         }
     ];
 
@@ -1570,6 +1667,11 @@
     // ══════════════════════════════════
     renderProducts();
     updateCart();
+
+    // Inject silk overlay div for texture
+    const silk = document.createElement('div');
+    silk.className = 'silk-overlay';
+    document.body.prepend(silk);
     </script>
 </body>
 </html>
