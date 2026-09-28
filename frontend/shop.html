@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Abhishre Designers — Exclusive Indian Fashion</title>
+    <meta name="description" content="Shop exclusive bridal lehengas, designer sarees, anarkalis, indo-western ensembles and more — handcrafted by Abhishre Designers.">
+    <link rel="icon" type="image/jpeg" href="public/images/logo.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Poppins:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --gold: #D4AF37;
+            --gold-light: rgba(212,175,55,0.15);
+            --gold-mid: rgba(212,175,55,0.4);
+            --bg: #0a0a0a;
+            --bg2: #111111;
+            --bg3: #1a1a1a;
+            --border: rgba(255,255,255,0.07);
+            --text: #e8e8e8;
+            --text-muted: rgba(255,255,255,0.45);
+            --sidebar-w: 270px;
+            --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ── TOPBAR ── */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10,10,10,0.92);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            gap: 1rem;
+        }
+        .topbar-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+        .topbar-logo img {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            border: 1.5px solid var(--gold);
+            object-fit: cover;
+        }
+        .topbar-logo span {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            letter-spacing: 4px;
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        .topbar-search {
+            flex: 1;
+            max-width: 460px;
+            position: relative;
+        }
+        .topbar-search input {
+            width: 100%;
+            padding: 10px 1rem 10px 2.8rem;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color var(--transition);
+        }
+        .topbar-search input:focus { border-color: var(--gold-mid); }
+        .topbar-search input::placeholder { color: var(--text-muted); }
+        .topbar-search .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .topbar-actions { display: flex; align-items: center; gap: 0.5rem; }
+        .topbar-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 8px;
+            transition: color var(--transition), background var(--transition);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .topbar-btn:hover { color: var(--gold); background: var(--gold-light); }
+        .topbar-btn .badge {
+            position: absolute;
+            top: 4px; right: 6px;
+            background: var(--gold);
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 700;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-label { font-size: 0.78rem; font-weight: 500; }
+
+        /* ── LAYOUT ── */
+        .shop-layout {
+            display: flex;
+            min-height: calc(100vh - 68px);
+        }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            width: var(--sidebar-w);
+            flex-shrink: 0;
+            background: var(--bg2);
+            border-right: 1px solid var(--border);
+            padding: 1.5rem 1.2rem;
+            position: sticky;
+            top: 68px;
+            height: calc(100vh - 68px);
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(212,175,55,0.2) transparent;
+        }
+        .sidebar-section { margin-bottom: 2rem; }
+        .sidebar-title {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .filter-group { display: flex; flex-direction: column; gap: 8px; }
+        .filter-chip {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background var(--transition);
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            user-select: none;
+        }
+        .filter-chip:hover { background: var(--gold-light); color: var(--text); }
+        .filter-chip.active {
+            background: var(--gold-light);
+            border-color: var(--gold-mid);
+            color: var(--gold);
+            font-weight: 500;
+        }
+        .filter-chip .chip-count {
+            margin-left: auto;
+            font-size: 0.7rem;
+            background: var(--bg3);
+            padding: 2px 7px;
+            border-radius: 20px;
+            color: var(--text-muted);
+        }
+
+        .price-range { padding: 0.3rem 0; }
+        .range-input {
+            width: 100%;
+            -webkit-appearance: none;
+            height: 3px;
+            background: linear-gradient(to right, var(--gold) 0%, var(--gold) 60%, rgba(255,255,255,0.1) 60%);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer;
+        }
+        .range-input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: 2px solid #000;
+            box-shadow: 0 0 8px rgba(212,175,55,0.5);
+        }
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+        .range-val { color: var(--gold); font-weight: 600; }
+
+        /* ── MAIN CONTENT ── */
+        .shop-main {
+            flex: 1;
+            padding: 1.5rem 2rem;
+            min-width: 0;
+        }
+
+        /* Breadcrumb + Header */
+        .shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--gold); }
+        .breadcrumb span { color: var(--text); }
+
+        .sort-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .sort-label { font-size: 0.78rem; color: var(--text-muted); }
+        .sort-select {
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            padding: 6px 1rem;
+            border-radius: 8px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .sort-select:focus { border-color: var(--gold-mid); }
+        .sort-select option { background: #1a1a1a; }
+
+        .result-count {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            padding: 6px 12px;
+            background: var(--bg3);
+            border-radius: 8px;
+        }
+        .result-count strong { color: var(--gold); }
+
+        /* Category Tabs */
+        .cat-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.8rem;
+        }
+        .cat-tab {
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 500;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            background: none;
+            transition: all var(--transition);
+            letter-spacing: 0.5px;
+        }
+        .cat-tab:hover { border-color: var(--gold-mid); color: var(--gold); }
+        .cat-tab.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: #000;
+            font-weight: 600;
+        }
+
+        /* ── PRODUCT GRID ── */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .product-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.08);
+            border-color: rgba(212,175,55,0.3);
+        }
+
+        .product-img-wrap {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: #111;
+        }
+        .product-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+            display: block;
+        }
+        .product-card:hover .product-img-wrap img { transform: scale(1.08); }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+        .badge-new { background: var(--gold); color: #000; }
+        .badge-bestseller { background: rgba(212,175,55,0.15); border: 1px solid var(--gold-mid); color: var(--gold); }
+        .badge-custom { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; }
+
+        .product-wishlist {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 34px; height: 34px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            z-index: 2;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85rem;
+        }
+        .product-wishlist:hover, .product-wishlist.active { color: #e74c3c; border-color: rgba(231,76,60,0.4); background: rgba(231,76,60,0.15); }
+
+        .quick-view-btn {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 12px;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            transform: translateY(100%);
+            transition: transform var(--transition);
+            border-top: 1px solid rgba(212,175,55,0.2);
+        }
+        .product-card:hover .quick-view-btn { transform: translateY(0); }
+
+        .product-info { padding: 1rem 1.1rem 1.1rem; }
+        .product-category {
+            font-size: 0.65rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .product-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .stars { color: var(--gold); font-size: 0.75rem; letter-spacing: 1px; }
+        .rating-count { font-size: 0.72rem; color: var(--text-muted); }
+        .product-price-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .price-block { display: flex; align-items: baseline; gap: 8px; }
+        .price-current {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+        .price-original {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+        .price-off {
+            font-size: 0.72rem;
+            color: #2ecc71;
+            font-weight: 600;
+        }
+        .add-cart-btn {
+            padding: 8px 14px;
+            background: var(--gold-light);
+            border: 1px solid var(--gold-mid);
+            border-radius: 8px;
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s;
+            white-space: nowrap;
+            font-family: 'Poppins', sans-serif;
+        }
+        .add-cart-btn:hover {
+            background: var(--gold);
+            color: #000;
+            border-color: var(--gold);
+        }
+        .add-cart-btn.added {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: #000;
+        }
+
+        /* ── CART DRAWER ── */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 500;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .cart-overlay.open { opacity: 1; pointer-events: all; }
+
+        .cart-drawer {
+            position: fixed;
+            top: 0; right: 0;
+            width: 420px;
+            max-width: 95vw;
+            height: 100vh;
+            background: var(--bg2);
+            border-left: 1px solid var(--border);
+            z-index: 501;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        .cart-drawer.open { transform: translateX(0); }
+
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .cart-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+        .cart-close {
+            width: 34px; height: 34px;
+            border-radius: 50%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .cart-close:hover { background: rgba(231,76,60,0.15); border-color: rgba(231,76,60,0.3); color: #e74c3c; }
+
+        .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+        .cart-empty {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+        .cart-empty i { font-size: 2.5rem; color: var(--gold-mid); }
+        .cart-empty p { font-size: 0.9rem; }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 0.75rem;
+            background: var(--bg3);
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        .cart-item-img {
+            width: 70px; height: 90px;
+            border-radius: 8px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .cart-item-cat { font-size: 0.7rem; color: var(--gold); margin-bottom: 6px; }
+        .cart-item-price { font-size: 0.9rem; font-weight: 700; color: var(--text); }
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+        }
+        .qty-btn {
+            width: 26px; height: 26px;
+            border-radius: 6px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .qty-btn:hover { border-color: var(--gold-mid); color: var(--gold); }
+        .qty-val { font-size: 0.85rem; font-weight: 600; min-width: 20px; text-align: center; }
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 4px;
+            margin-top: auto;
+            transition: color 0.2s;
+        }
+        .cart-item-remove:hover { color: #e74c3c; }
+
+        .cart-footer {
+            padding: 1.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .cart-subtotal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+        }
+        .cart-subtotal .sub-label { color: var(--text-muted); }
+        .cart-subtotal .sub-val { font-weight: 700; font-size: 1.1rem; }
+        .cart-note { font-size: 0.72rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .checkout-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #D4AF37, #B8960C);
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.2s;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.3);
+        }
+        .checkout-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .wa-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(37,211,102,0.1);
+            border: 1px solid rgba(37,211,102,0.3);
+            border-radius: 12px;
+            color: #25D366;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .wa-btn:hover { background: rgba(37,211,102,0.2); }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 600;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+        .modal {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+        .modal-img-col {
+            width: 340px;
+            flex-shrink: 0;
+        }
+        .modal-img-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px 0 0 20px;
+            display: block;
+        }
+        .modal-info-col {
+            flex: 1;
+            padding: 2rem;
+            min-width: 260px;
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem; right: 1rem;
+            width: 36px; height: 36px;
+            border-radius: 50%;
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { background: rgba(231,76,60,0.15); color: #e74c3c; }
+        .modal { position: relative; }
+        .modal-cat { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+        .modal-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; }
+        .modal-rating { display: flex; align-items: center; gap: 8px; margin-bottom: 1rem; }
+        .modal-price { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+        .modal-price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 1rem; }
+        .modal-orig { font-size: 0.9rem; color: var(--text-muted); text-decoration: line-through; }
+        .modal-off { font-size: 0.8rem; color: #2ecc71; font-weight: 600; }
+        .modal-divider { height: 1px; background: var(--border); margin: 1rem 0; }
+        .modal-desc { font-size: 0.83rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 1rem; }
+        .modal-detail { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.2rem; }
+        .modal-detail-row { display: flex; gap: 10px; font-size: 0.8rem; }
+        .detail-key { color: var(--text-muted); width: 90px; flex-shrink: 0; }
+        .detail-val { color: var(--text); font-weight: 500; }
+        .modal-size { margin-bottom: 1.2rem; }
+        .size-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; }
+        .size-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+        .size-chip {
+            padding: 6px 14px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+        .size-chip:hover, .size-chip.active {
+            border-color: var(--gold-mid);
+            background: var(--gold-light);
+            color: var(--gold);
+        }
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+        .modal-add-btn {
+            padding: 14px;
+            background: linear-gradient(135deg, #D4AF37, #B8960C);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .modal-add-btn:hover { opacity: 0.88; }
+        .modal-enquire-btn {
+            padding: 12px;
+            background: rgba(37,211,102,0.1);
+            border: 1px solid rgba(37,211,102,0.3);
+            border-radius: 10px;
+            color: #25D366;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        .modal-enquire-btn:hover { background: rgba(37,211,102,0.2); }
+
+        /* ── BANNER ── */
+        .shop-banner {
+            background: linear-gradient(135deg, rgba(212,175,55,0.08) 0%, rgba(212,175,55,0.03) 100%);
+            border: 1px solid rgba(212,175,55,0.15);
+            border-radius: 16px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .banner-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--gold);
+        }
+        .banner-text p { font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; }
+        .banner-insta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .banner-insta-btn:hover { opacity: 0.85; }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: var(--bg2);
+            border: 1px solid rgba(212,175,55,0.4);
+            color: var(--gold);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            z-index: 700;
+            opacity: 0;
+            transition: all 0.35s;
+            white-space: nowrap;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 900px) {
+            .sidebar { display: none; }
+            .topbar { padding: 0 1rem; }
+            .shop-main { padding: 1rem; }
+            .product-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+            .modal-img-col { width: 100%; }
+            .modal-img-col img { border-radius: 20px 20px 0 0; max-height: 300px; }
+        }
+        @media (max-width: 480px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+            .cart-drawer { width: 100vw; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <a href="index.html" class="topbar-logo">
+            <img src="public/images/logo.jpg" alt="Abhishre">
+            <span>Abhishre</span>
+        </a>
+        <div class="topbar-search">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" placeholder="Search lehengas, sarees, kurtis…" autocomplete="off">
+        </div>
+        <div class="topbar-actions">
+            <button class="topbar-btn" id="wishlistBtn" title="Wishlist">
+                <i class="far fa-heart"></i>
+                <span class="btn-label" style="display:none">Wishlist</span>
+            </button>
+            <button class="topbar-btn" id="cartBtn" title="Cart">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="badge" id="cartBadge">0</span>
+            </button>
+            <a href="auth.html" class="topbar-btn" title="Account">
+                <i class="far fa-user"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="shop-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <p class="sidebar-title">Category</p>
+                <div class="filter-group" id="categoryFilters">
+                    <div class="filter-chip active" data-cat="all">
+                        <i class="fas fa-th" style="font-size:0.75rem;color:var(--gold)"></i> All Items
+                        <span class="chip-count">12</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Bridal Lehenga">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Bridal Lehenga
+                        <span class="chip-count">3</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Designer Saree">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Designer Sarees
+                        <span class="chip-count">2</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Anarkali Suit">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Anarkali Suits
+                        <span class="chip-count">2</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Indo Western">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Indo Western
+                        <span class="chip-count">2</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Designer Kurti">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Designer Kurtis
+                        <span class="chip-count">2</span>
+                    </div>
+                    <div class="filter-chip" data-cat="Party Wear">
+                        <i class="fas fa-star" style="font-size:0.65rem"></i> Party Wear
+                        <span class="chip-count">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-title">Price Range</p>
+                <div class="price-range">
+                    <input type="range" class="range-input" id="priceRange" min="1000" max="80000" value="80000" step="500">
+                    <div class="range-labels">
+                        <span>₹1,000</span>
+                        <span>Up to <span class="range-val" id="rangeVal">₹80,000</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-title">Sort By</p>
+                <div class="filter-group">
+                    <div class="filter-chip active" data-sort="featured">Featured</div>
+                    <div class="filter-chip" data-sort="price-low">Price: Low to High</div>
+                    <div class="filter-chip" data-sort="price-high">Price: High to Low</div>
+                    <div class="filter-chip" data-sort="newest">Newest First</div>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="sidebar-title">Occasion</p>
+                <div class="filter-group">
+                    <div class="filter-chip active" data-occ="all">All Occasions</div>
+                    <div class="filter-chip" data-occ="bridal">Bridal & Wedding</div>
+                    <div class="filter-chip" data-occ="festive">Festive & Puja</div>
+                    <div class="filter-chip" data-occ="party">Party & Evening</div>
+                    <div class="filter-chip" data-occ="casual">Casual & Daily</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="shop-main">
+
+            <!-- Banner -->
+            <div class="shop-banner">
+                <div class="banner-text">
+                    <h2>✦ Abhishre Designers Collection</h2>
+                    <p>Handcrafted exclusively — each piece inspired by our signature Instagram aesthetic</p>
+                </div>
+                <a href="https://www.instagram.com/abhishre_designers" target="_blank" class="banner-insta-btn">
+                    <i class="fab fa-instagram"></i> Follow on Instagram
+                </a>
+            </div>
+
+            <!-- Header Row -->
+            <div class="shop-header">
+                <nav class="breadcrumb">
+                    <a href="index.html">Home</a>
+                    <i class="fas fa-chevron-right" style="font-size:0.6rem"></i>
+                    <span>Shop</span>
+                </nav>
+                <div class="sort-row">
+                    <span class="result-count"><strong id="visibleCount">12</strong> products</span>
+                    <span class="sort-label">Sort:</span>
+                    <select class="sort-select" id="sortSelect">
+                        <option value="featured">Featured</option>
+                        <option value="price-low">Price ↑</option>
+                        <option value="price-high">Price ↓</option>
+                        <option value="newest">Newest</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="cat-tabs" id="catTabs">
+                <button class="cat-tab active" data-cat="all">All</button>
+                <button class="cat-tab" data-cat="Bridal Lehenga">Bridal Lehenga</button>
+                <button class="cat-tab" data-cat="Designer Saree">Sarees</button>
+                <button class="cat-tab" data-cat="Anarkali Suit">Anarkali</button>
+                <button class="cat-tab" data-cat="Indo Western">Indo Western</button>
+                <button class="cat-tab" data-cat="Designer Kurti">Kurtis</button>
+                <button class="cat-tab" data-cat="Party Wear">Party Wear</button>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="productGrid"></div>
+
+        </main>
+    </div>
+
+    <!-- Cart Overlay + Drawer -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3>Your Bag <span id="cartCount" style="font-size:0.9rem;color:var(--gold);font-family:'Poppins',sans-serif;font-weight:400;">(0)</span></h3>
+            <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItemsContainer">
+            <div class="cart-empty" id="cartEmpty">
+                <i class="fas fa-shopping-bag"></i>
+                <p>Your bag is empty</p>
+                <p style="font-size:0.72rem">Browse our collection and add your favourites</p>
+            </div>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none">
+            <div class="cart-subtotal">
+                <span class="sub-label">Subtotal</span>
+                <span class="sub-val" id="cartTotal">₹0</span>
+            </div>
+            <p class="cart-note">✓ Custom stitching included &nbsp;·&nbsp; Free delivery above ₹5,000</p>
+            <button class="checkout-btn" onclick="handleCheckout()">Proceed to Order →</button>
+            <a class="wa-btn" id="waOrderBtn" href="#" target="_blank">
+                <i class="fab fa-whatsapp"></i> Order via WhatsApp
+            </a>
+        </div>
+    </aside>
+
+    <!-- Quick View Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="productModal">
+            <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            <div class="modal-img-col">
+                <img id="modalImg" src="" alt="">
+            </div>
+            <div class="modal-info-col">
+                <p class="modal-cat" id="modalCat"></p>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <div class="modal-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="rating-count" id="modalReviews"></span>
+                </div>
+                <div class="modal-price-row">
+                    <span class="modal-price" id="modalPrice"></span>
+                    <span class="modal-orig" id="modalOrig"></span>
+                    <span class="modal-off" id="modalOff"></span>
+                </div>
+                <div class="modal-divider"></div>
+                <p class="modal-desc" id="modalDesc"></p>
+                <div class="modal-detail" id="modalDetail"></div>
+                <div class="modal-size">
+                    <p class="size-label">Select Size</p>
+                    <div class="size-chips" id="sizeChips"></div>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-add-btn" id="modalAddBtn">Add to Bag</button>
+                    <a class="modal-enquire-btn" id="modalEnquireBtn" href="#" target="_blank">
+                        <i class="fab fa-whatsapp"></i> Enquire on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+    // ══════════════════════════════════
+    //  PRODUCT DATA  (Abhishre Designers)
+    // ══════════════════════════════════
+    const PRODUCTS = [
+        {
+            id: 1,
+            name: "Royal Velvet Bridal Lehenga",
+            category: "Bridal Lehenga",
+            badge: "bestseller",
+            price: 45000,
+            originalPrice: 62000,
+            img: "public/images/product_bridal_lehenga.jpg",
+            rating: 4.9,
+            reviews: 128,
+            desc: "Exquisite maroon velvet bridal lehenga adorned with intricate gold zari embroidery and hand-stitched sequins. Comes with matching choli and dupatta. A timeless masterpiece for your wedding day.",
+            details: { Fabric: "Pure Velvet", Embroidery: "Zari + Sequin", Color: "Maroon & Gold", Includes: "Lehenga + Choli + Dupatta", Craft: "Hand-stitched" },
+            sizes: ["S", "M", "L", "XL", "Custom"],
+            occasion: "bridal",
+            new: false
+        },
+        {
+            id: 2,
+            name: "Peacock Blue Banarasi Silk Saree",
+            category: "Designer Saree",
+            badge: "new",
+            price: 18500,
+            originalPrice: 24000,
+            img: "public/images/product_silk_saree.jpg",
+            rating: 4.8,
+            reviews: 94,
+            desc: "Stunning peacock blue Banarasi silk saree with wide golden zari border and intricate pallu work. Perfect for festivals, pujas and family functions. Blouse piece included.",
+            details: { Fabric: "Pure Banarasi Silk", Border: "Heavy Gold Zari", Color: "Peacock Blue", Length: "6.5 meters", Blouse: "Included" },
+            sizes: ["Free Size", "Custom"],
+            occasion: "festive",
+            new: true
+        },
+        {
+            id: 3,
+            name: "Ivory Rose Indo-Western Set",
+            category: "Indo Western",
+            badge: "new",
+            price: 12000,
+            originalPrice: 16500,
+            img: "public/images/product_indo_western.jpg",
+            rating: 4.7,
+            reviews: 67,
+            desc: "Elegant ivory and rose gold embroidered kurta paired with flared palazzo pants. A perfect blend of traditional embroidery with modern silhouette for receptions and mehendi ceremonies.",
+            details: { Fabric: "Georgette", Embroidery: "Chikankari + Sequin", Color: "Ivory & Rose Gold", Includes: "Kurta + Palazzo", Style: "Indo-Western" },
+            sizes: ["XS", "S", "M", "L", "XL", "Custom"],
+            occasion: "festive",
+            new: true
+        },
+        {
+            id: 4,
+            name: "Teal Zardosi Umbrella Anarkali",
+            category: "Designer Kurti",
+            badge: "bestseller",
+            price: 9500,
+            originalPrice: 13000,
+            img: "public/images/product_designer_kurti.jpg",
+            rating: 4.9,
+            reviews: 156,
+            desc: "Breathtaking teal umbrella anarkali featuring heavy gold zardosi embroidery all over. The flared hem creates a dramatic silhouette perfect for sangeets, receptions and parties.",
+            details: { Fabric: "Silk Blend", Embroidery: "Zardosi + Stonework", Color: "Teal & Gold", Style: "Umbrella Anarkali", Hem: "Floor length" },
+            sizes: ["S", "M", "L", "XL", "Custom"],
+            occasion: "party",
+            new: false
+        },
+        {
+            id: 5,
+            name: "Emerald Sequin Evening Gown",
+            category: "Party Wear",
+            badge: "new",
+            price: 22000,
+            originalPrice: 28000,
+            img: "public/images/product_party_wear.jpg",
+            rating: 4.8,
+            reviews: 43,
+            desc: "Glamorous emerald green sequin gown with intricate floral embellishments. A stunning statement piece for cocktail parties, receptions and awards evenings. Fully lined for comfort.",
+            details: { Fabric: "Net + Sequin", Embellishment: "Sequin + Zari", Color: "Emerald Green & Gold", Style: "Flared Gown", Lining: "Fully Lined" },
+            sizes: ["XS", "S", "M", "L", "XL", "Custom"],
+            occasion: "party",
+            new: true
+        },
+        {
+            id: 6,
+            name: "Rani Pink Zardosi Anarkali Suit",
+            category: "Anarkali Suit",
+            badge: "bestseller",
+            price: 14500,
+            originalPrice: 19000,
+            img: "public/images/product_anarkali.jpg",
+            rating: 4.9,
+            reviews: 211,
+            desc: "Majestic rani pink Anarkali suit with heavy Zardosi embroidery, paired with churidar and matching net dupatta. A show-stopping ensemble for weddings and festive celebrations.",
+            details: { Fabric: "Art Silk", Embroidery: "Zardosi + Kundan", Color: "Rani Pink & Gold", Includes: "Anarkali + Churidar + Dupatta", Craft: "Hand-embroidered" },
+            sizes: ["S", "M", "L", "XL", "XXL", "Custom"],
+            occasion: "bridal",
+            new: false
+        },
+        {
+            id: 7,
+            name: "Bridal Crimson Lehenga Choli",
+            category: "Bridal Lehenga",
+            badge: "custom",
+            price: 55000,
+            originalPrice: 72000,
+            img: "public/images/bridal_wear.jpg",
+            rating: 5.0,
+            reviews: 38,
+            desc: "Custom-crafted crimson bridal lehenga with hand-embroidered floral motifs, mirror work and gota patti detailing. Every stitch is a work of art by our master craftswomen.",
+            details: { Fabric: "Pure Silk", Embroidery: "Gota Patti + Mirror Work", Color: "Crimson & Gold", Craft: "Fully Hand-embroidered", Delivery: "21–30 days" },
+            sizes: ["Custom Only"],
+            occasion: "bridal",
+            new: false
+        },
+        {
+            id: 8,
+            name: "Midnight Blue Tassel Saree",
+            category: "Designer Saree",
+            badge: "new",
+            price: 9800,
+            originalPrice: 13500,
+            img: "public/images/designer_sarees.jpg",
+            rating: 4.7,
+            reviews: 72,
+            desc: "Elegant midnight blue saree with hand-embroidered tassel borders and delicate mirror work pallu. A modern designer piece inspired by Abhishre's signature saree draping style.",
+            details: { Fabric: "Georgette", Border: "Tassel + Mirror Work", Color: "Midnight Blue & Silver", Length: "6 meters", Blouse: "Included" },
+            sizes: ["Free Size"],
+            occasion: "festive",
+            new: true
+        },
+        {
+            id: 9,
+            name: "Sage Green Palazzo Kurta Set",
+            category: "Indo Western",
+            badge: null,
+            price: 7500,
+            originalPrice: 9800,
+            img: "public/images/indo_western.jpg",
+            rating: 4.6,
+            reviews: 88,
+            desc: "Breezy sage green palazzo kurta set with delicate floral prints and scalloped lace border. Ideal for casual outings, college events and day functions.",
+            details: { Fabric: "Linen Blend", Print: "Floral Block Print", Color: "Sage Green & White", Includes: "Kurta + Palazzo", Style: "Casual Chic" },
+            sizes: ["XS", "S", "M", "L", "XL"],
+            occasion: "casual",
+            new: false
+        },
+        {
+            id: 10,
+            name: "Gold Runway Show Lehenga",
+            category: "Bridal Lehenga",
+            badge: "bestseller",
+            price: 38000,
+            originalPrice: 49000,
+            img: "public/images/event_runway_show.png",
+            rating: 4.9,
+            reviews: 19,
+            desc: "As seen on the Abhishree runway — this signature gold bridal lehenga features statement architectural pleating with heavy gold thread embroidery. Limited edition.",
+            details: { Fabric: "Tissue Silk", Embroidery: "Full Gold Zari", Color: "Gold & Ivory", Style: "Runway Edition", Availability: "Limited" },
+            sizes: ["S", "M", "L", "Custom"],
+            occasion: "bridal",
+            new: false
+        },
+        {
+            id: 11,
+            name: "Printed Western Coord Set",
+            category: "Designer Kurti",
+            badge: "new",
+            price: 4800,
+            originalPrice: 6500,
+            img: "public/images/western_wear.jpg",
+            rating: 4.5,
+            reviews: 54,
+            desc: "Trendy co-ord set with bold printed top and wide-leg trousers. A fresh indo-western pick for brunches, college functions and casual events.",
+            details: { Fabric: "Rayon", Print: "Abstract Print", Color: "Multicolor", Includes: "Top + Trousers", Style: "Western Fusion" },
+            sizes: ["XS", "S", "M", "L", "XL"],
+            occasion: "casual",
+            new: true
+        },
+        {
+            id: 12,
+            name: "Bottle Green Festive Anarkali",
+            category: "Anarkali Suit",
+            badge: null,
+            price: 11000,
+            originalPrice: 14500,
+            img: "public/images/saree_draping.png",
+            rating: 4.7,
+            reviews: 103,
+            desc: "Rich bottle green Anarkali with intricate silver thread embroidery, paired with churidar and dupatta. Perfect for Diwali, Eid and festive celebrations.",
+            details: { Fabric: "Georgette", Embroidery: "Silver Zari Thread", Color: "Bottle Green & Silver", Includes: "Anarkali + Churidar + Dupatta", Occasion: "Festive" },
+            sizes: ["S", "M", "L", "XL", "Custom"],
+            occasion: "festive",
+            new: false
+        }
+    ];
+
+    // ══════════════════════════════════
+    //  STATE
+    // ══════════════════════════════════
+    let cart = [];
+    let wishlist = new Set();
+    let activeCategory = 'all';
+    let maxPrice = 80000;
+    let searchQuery = '';
+    let openProduct = null;
+    let selectedSize = '';
+
+    // ══════════════════════════════════
+    //  RENDER PRODUCTS
+    // ══════════════════════════════════
+    function getFiltered() {
+        return PRODUCTS.filter(p => {
+            const catMatch = activeCategory === 'all' || p.category === activeCategory;
+            const priceMatch = p.price <= maxPrice;
+            const searchMatch = !searchQuery || p.name.toLowerCase().includes(searchQuery) || p.category.toLowerCase().includes(searchQuery) || p.desc.toLowerCase().includes(searchQuery);
+            return catMatch && priceMatch && searchMatch;
+        });
+    }
+
+    function renderProducts() {
+        const grid = document.getElementById('productGrid');
+        const items = getFiltered();
+        document.getElementById('visibleCount').textContent = items.length;
+
+        if (items.length === 0) {
+            grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--text-muted)"><i class="fas fa-search" style="font-size:2rem;margin-bottom:1rem;display:block;color:var(--gold-mid)"></i><p>No products found. Try adjusting your filters.</p></div>`;
+            return;
+        }
+
+        grid.innerHTML = items.map(p => {
+            const discount = Math.round((1 - p.price / p.originalPrice) * 100);
+            const badgeHtml = p.badge ? `<span class="product-badge badge-${p.badge}">${p.badge === 'bestseller' ? '⭐ Bestseller' : p.badge === 'new' ? '✦ New' : '✦ Custom'}</span>` : '';
+            const inWishlist = wishlist.has(p.id);
+            const cartItem = cart.find(c => c.id === p.id);
+            const isInCart = !!cartItem;
+
+            return `
+            <div class="product-card" data-id="${p.id}" onclick="openModal(${p.id})">
+                <div class="product-img-wrap">
+                    ${badgeHtml}
+                    <img src="${p.img}" alt="${p.name}" loading="lazy">
+                    <div class="product-wishlist ${inWishlist ? 'active' : ''}" onclick="toggleWishlist(event, ${p.id})">
+                        <i class="${inWishlist ? 'fas' : 'far'} fa-heart"></i>
+                    </div>
+                    <div class="quick-view-btn">Quick View</div>
+                </div>
+                <div class="product-info">
+                    <p class="product-category">${p.category}</p>
+                    <h3 class="product-name">${p.name}</h3>
+                    <p class="product-desc">${p.desc.slice(0, 75)}…</p>
+                    <div class="product-rating">
+                        <span class="stars">${'★'.repeat(Math.floor(p.rating))}${p.rating % 1 ? '☆' : ''}</span>
+                        <span class="rating-count">(${p.reviews})</span>
+                    </div>
+                    <div class="product-price-row">
+                        <div class="price-block">
+                            <span class="price-current">₹${p.price.toLocaleString('en-IN')}</span>
+                            <span class="price-original">₹${p.originalPrice.toLocaleString('en-IN')}</span>
+                            <span class="price-off">${discount}% off</span>
+                        </div>
+                        <button class="add-cart-btn ${isInCart ? 'added' : ''}" id="addBtn-${p.id}"
+                            onclick="addToCart(event, ${p.id})">
+                            ${isInCart ? '✓ Added' : '+ Add'}
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    // ══════════════════════════════════
+    //  CART
+    // ══════════════════════════════════
+    function addToCart(e, id, size) {
+        if (e) e.stopPropagation();
+        const product = PRODUCTS.find(p => p.id === id);
+        if (!product) return;
+
+        const existing = cart.find(c => c.id === id);
+        if (existing) {
+            existing.qty += 1;
+        } else {
+            cart.push({ ...product, qty: 1, selectedSize: size || 'M' });
+        }
+        updateCart();
+        showToast(`✦ "${product.name}" added to your bag`);
+
+        const btn = document.getElementById(`addBtn-${id}`);
+        if (btn) { btn.textContent = '✓ Added'; btn.classList.add('added'); }
+    }
+
+    function removeFromCart(id) {
+        cart = cart.filter(c => c.id !== id);
+        updateCart();
+        renderCartItems();
+    }
+
+    function changeQty(id, delta) {
+        const item = cart.find(c => c.id === id);
+        if (!item) return;
+        item.qty += delta;
+        if (item.qty <= 0) removeFromCart(id);
+        else { updateCart(); renderCartItems(); }
+    }
+
+    function updateCart() {
+        const count = cart.reduce((s, c) => s + c.qty, 0);
+        document.getElementById('cartBadge').textContent = count;
+        document.getElementById('cartCount').textContent = `(${count})`;
+        const total = cart.reduce((s, c) => s + c.price * c.qty, 0);
+        document.getElementById('cartTotal').textContent = `₹${total.toLocaleString('en-IN')}`;
+        document.getElementById('cartFooter').style.display = cart.length ? '' : 'none';
+        document.getElementById('cartEmpty').style.display = cart.length ? 'none' : '';
+        // Update WhatsApp link
+        buildWaLink();
+    }
+
+    function buildWaLink() {
+        const phone = '919876543210';
+        if (!cart.length) return;
+        const items = cart.map(c => `• ${c.name} (${c.selectedSize}) x${c.qty} — ₹${(c.price*c.qty).toLocaleString('en-IN')}`).join('%0A');
+        const total = cart.reduce((s,c) => s+c.price*c.qty, 0);
+        const msg = `Hello Abhishre Designers! 👗%0AI'd like to order:%0A${items}%0A%0ATotal: ₹${total.toLocaleString('en-IN')}%0APlease confirm availability and delivery details.`;
+        document.getElementById('waOrderBtn').href = `https://wa.me/${phone}?text=${msg}`;
+    }
+
+    function renderCartItems() {
+        const container = document.getElementById('cartItemsContainer');
+        if (!cart.length) {
+            container.innerHTML = `<div class="cart-empty" id="cartEmpty"><i class="fas fa-shopping-bag"></i><p>Your bag is empty</p><p style="font-size:0.72rem">Browse our collection and add your favourites</p></div>`;
+            return;
+        }
+        container.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <img class="cart-item-img" src="${item.img}" alt="${item.name}">
+                <div class="cart-item-info">
+                    <p class="cart-item-name">${item.name}</p>
+                    <p class="cart-item-cat">${item.category} · ${item.selectedSize}</p>
+                    <p class="cart-item-price">₹${(item.price * item.qty).toLocaleString('en-IN')}</p>
+                    <div class="cart-item-qty">
+                        <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+                        <span class="qty-val">${item.qty}</span>
+                        <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+                        <button class="cart-item-remove" onclick="removeFromCart(${item.id})" style="margin-left:auto"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+            </div>`).join('');
+    }
+
+    function openCart() {
+        renderCartItems();
+        document.getElementById('cartDrawer').classList.add('open');
+        document.getElementById('cartOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+        document.getElementById('cartDrawer').classList.remove('open');
+        document.getElementById('cartOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.getElementById('cartBtn').addEventListener('click', openCart);
+    document.getElementById('cartClose').addEventListener('click', closeCart);
+    document.getElementById('cartOverlay').addEventListener('click', closeCart);
+
+    function handleCheckout() {
+        showToast('✦ Order enquiry sent via WhatsApp!');
+        document.getElementById('waOrderBtn').click();
+    }
+
+    // ══════════════════════════════════
+    //  WISHLIST
+    // ══════════════════════════════════
+    function toggleWishlist(e, id) {
+        e.stopPropagation();
+        if (wishlist.has(id)) {
+            wishlist.delete(id);
+            showToast('Removed from wishlist');
+        } else {
+            wishlist.add(id);
+            showToast('✦ Added to wishlist');
+        }
+        renderProducts();
+    }
+
+    // ══════════════════════════════════
+    //  MODAL
+    // ══════════════════════════════════
+    function openModal(id) {
+        const p = PRODUCTS.find(pr => pr.id === id);
+        if (!p) return;
+        openProduct = p;
+        selectedSize = p.sizes[0] || '';
+
+        document.getElementById('modalImg').src = p.img;
+        document.getElementById('modalCat').textContent = p.category;
+        document.getElementById('modalTitle').textContent = p.name;
+        document.getElementById('modalReviews').textContent = `${p.rating} · ${p.reviews} reviews`;
+        const discount = Math.round((1 - p.price / p.originalPrice) * 100);
+        document.getElementById('modalPrice').textContent = `₹${p.price.toLocaleString('en-IN')}`;
+        document.getElementById('modalOrig').textContent = `₹${p.originalPrice.toLocaleString('en-IN')}`;
+        document.getElementById('modalOff').textContent = `${discount}% off`;
+        document.getElementById('modalDesc').textContent = p.desc;
+
+        const detailEl = document.getElementById('modalDetail');
+        detailEl.innerHTML = Object.entries(p.details).map(([k,v]) =>
+            `<div class="modal-detail-row"><span class="detail-key">${k}</span><span class="detail-val">${v}</span></div>`
+        ).join('');
+
+        const sizeEl = document.getElementById('sizeChips');
+        sizeEl.innerHTML = p.sizes.map(s =>
+            `<div class="size-chip ${s === selectedSize ? 'active' : ''}" onclick="selectSize('${s}', this)">${s}</div>`
+        ).join('');
+
+        const phone = '919876543210';
+        const msg = `Hello! I'm interested in *${p.name}* (₹${p.price.toLocaleString('en-IN')}). Can you share more details?`;
+        document.getElementById('modalEnquireBtn').href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+
+        document.getElementById('modalOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function selectSize(size, el) {
+        selectedSize = size;
+        document.querySelectorAll('.size-chip').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+    }
+
+    document.getElementById('modalAddBtn').addEventListener('click', () => {
+        if (!openProduct) return;
+        addToCart(null, openProduct.id, selectedSize);
+        closeModal();
+        openCart();
+    });
+
+    function closeModal() {
+        document.getElementById('modalOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+        openProduct = null;
+    }
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+    // ══════════════════════════════════
+    //  FILTERS
+    // ══════════════════════════════════
+    document.getElementById('catTabs').addEventListener('click', e => {
+        const tab = e.target.closest('.cat-tab');
+        if (!tab) return;
+        activeCategory = tab.dataset.cat;
+        document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('#categoryFilters .filter-chip').forEach(c => {
+            c.classList.toggle('active', c.dataset.cat === activeCategory);
+        });
+        renderProducts();
+    });
+
+    document.getElementById('categoryFilters').addEventListener('click', e => {
+        const chip = e.target.closest('.filter-chip[data-cat]');
+        if (!chip) return;
+        activeCategory = chip.dataset.cat;
+        document.querySelectorAll('#categoryFilters .filter-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        document.querySelectorAll('.cat-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === activeCategory));
+        renderProducts();
+    });
+
+    document.getElementById('priceRange').addEventListener('input', function() {
+        maxPrice = parseInt(this.value);
+        document.getElementById('rangeVal').textContent = `₹${maxPrice.toLocaleString('en-IN')}`;
+        this.style.background = `linear-gradient(to right, var(--gold) 0%, var(--gold) ${((maxPrice-1000)/(80000-1000))*100}%, rgba(255,255,255,0.1) ${((maxPrice-1000)/(80000-1000))*100}%)`;
+        renderProducts();
+    });
+
+    document.getElementById('searchInput').addEventListener('input', function() {
+        searchQuery = this.value.trim().toLowerCase();
+        renderProducts();
+    });
+
+    document.getElementById('sortSelect').addEventListener('change', function() {
+        const val = this.value;
+        if (val === 'price-low') PRODUCTS.sort((a,b) => a.price - b.price);
+        else if (val === 'price-high') PRODUCTS.sort((a,b) => b.price - a.price);
+        else if (val === 'newest') PRODUCTS.sort((a,b) => (b.new?1:0) - (a.new?1:0));
+        else PRODUCTS.sort((a,b) => b.reviews - a.reviews);
+        renderProducts();
+    });
+
+    // ══════════════════════════════════
+    //  TOAST
+    // ══════════════════════════════════
+    let toastTimer;
+    function showToast(msg) {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+    }
+
+    // ══════════════════════════════════
+    //  INIT
+    // ══════════════════════════════════
+    renderProducts();
+    updateCart();
+    </script>
+</body>
+</html>
